@@ -1,0 +1,36 @@
+<?php
+    $this->layout('layouts::default', ['title' => $title])
+?>
+<div class="container">
+    <div class="jumbotron">
+        <?php if (isset($debts)):?>
+            <div class ='text-center'><h1><?= $debts->message ?></h1></div>
+            <?php if ($debts->amountVal > 0):?>
+            <div class="text-center">
+                <a href="index.php?" class ="btn btn-warning">Pay All</a>
+            </div>
+            <?php endif ?>
+        <?php endif ?>
+    </div>
+</div>
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-6">
+                <?php $this->insert('partials::debt-table', ['debtTable' => $debts->owed]) ?>
+            <?php if (sizeof($debts->owed) > 0): ?>
+                test
+            <?php else: ?>
+                <h2>No debts owed</h2>
+            <?php endif;?>
+        </div>
+
+        <div class = "col-md-6">
+            <?php if (sizeof($debts->owedTooYou) > 0): ?>
+                <?php $this->insert('partials::debt-table', ['debtTable' => $debts->owedTooYou]) ?>
+            <?php else: ?>
+                <h2>No debts owed to you</h2>
+            <?php endif;?>
+        </div>
+    </div>
+</div>

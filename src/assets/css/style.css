@@ -1,0 +1,235 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  	font-size: 14px;
+  	margin:0;
+}
+.radiowrapper {
+	position:absolute;
+}
+
+.radiowrapper input {
+	visibility:hidden; 
+	width:0;
+}
+
+.radiowrapper input +label:last-child{
+	font-weight:bold; 
+	width:40%;
+	margin-left: 5%;
+	margin-top:10px;
+	background-color: rgb(24, 158, 116);
+}
+
+.radiowrapper label:hover {
+	font-weight:bold
+}
+.radiowrapper input + label {
+	width: 50%;
+	padding-top:5px;
+	float:left;
+	background-color: white;
+	display:block;
+	padding:10px;
+	border:1px;
+	border-style: solid;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-radius:3px;
+	margin:3px;
+}
+
+.radiowrapper input:checked + label {
+	font-weight:bold; 
+	background-color: rgb(24, 158, 116);
+}
+
+.navbar {
+	border-width: 0 0 1px;
+	height: 72px;
+	-webkit-box-shadow: 0 5px 10px 0 rgba(199,199,199,0.75);
+	-moz-box-shadow: 0 5px 10px 0 rgba(199,199,199,0.75);
+	box-shadow: 0 5px 10px 0 rgba(199,199,199,0.75);
+}
+.loginreg{
+	padding:5%;
+	padding-top: 2%;
+}
+.loginreg a{
+	width:150px;
+	text-align: center;
+    font-weight: normal;
+	display:block;
+	text-decoration: none;
+	border:0;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-radius: :3px;
+	background-color: rgb(24, 158, 116);
+	padding:5px;
+	color: #ffffff;
+}
+
+.loginreg a:hover{
+	background-color:#5DBB9E;
+}
+.error{
+	text-align: center;
+	table-layout: :auto;
+	font-weight: bold;
+	color: #FF5C33;
+	font-size: 15px;
+	padding-bottom:20px;
+}
+
+.navbar ul{
+	height:72px;
+	display:block;
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    padding-left:2%;
+}
+.navbar ul li {
+	padding:10px;
+	margin-top:15px;
+	float: left;
+	list-style-type: none;
+	display:inline;
+}
+.options li:hover{
+	background-color:#5DBB9E;
+}
+.options {
+	padding-top:5px;
+	float:right;
+	height:67px;
+	display:block;
+	list-style-type: none;
+	margin-right:5%;
+}
+
+.options li{
+	font-weight: normal;
+	font-size: 14px;
+	display:block;
+	border:0;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-radius: :30px;
+	background-color: rgb(24, 158, 116);
+	margin:10px;
+	padding:10px;
+	color: #ffffff;
+}
+
+.navtext{
+	font-weight: bold;
+	color: rgb(24, 158, 116);
+	font-size: 25px;
+}
+.mainpage{
+	padding-left:3%;
+	padding-right:3%;
+}
+
+.topinfo{
+	table-layout: :auto;
+	font-weight: bold;
+	color: rgb(24, 158, 116);
+	font-size: 15px;
+}
+.topinfo td{
+	padding-right:5px;
+}
+.payment{
+	table-layout: :auto;
+	color: black;
+	font-size: 15px;
+}
+.payment td{
+	padding:5px;
+}
+.payment a{
+	text-align: center;
+    font-weight: normal;
+	display:block;
+	text-decoration: none;
+	border:0;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-radius: :3px;
+	background-color: rgb(24, 158, 116);
+	padding:5px;
+	color: #ffffff;
+}
+
+.payment a:hover{
+	background-color:#5DBB9E;
+}
+
+.createadebt{
+	table-layout: :auto;
+	font-weight: bold;
+	color: rgb(24, 158, 116);
+	font-size: 15px;
+
+}
+.createadebt td{
+	float:left;
+	padding-right:30px;
+}
+
+#debttable {
+	margin:1px;
+	width:100%;
+	border-collapse: collapse;
+	border: 1px solid #000000;
+}
+
+#debttable a{
+	text-align: center;
+    font-weight: normal;
+	display:block;
+	text-decoration: none;
+	border:0;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-radius: :3px;
+	background-color: rgb(24, 158, 116);
+	padding:5px;
+	color: #ffffff;
+}
+
+#debttable a:hover{
+	background-color:#5DBB9E;
+}
+
+#debttable th{
+	background-color: #189E74;
+	color: white;
+}
+#debttable tr{
+	padding:5px;
+}
+
+#debttable tr.youowe{
+	background-color: #FFCC99;
+}
+#debttable tr.youreowed{
+	background-color: #DDFFE0;
+}
+
+#debttable td,th{
+	padding:8px;
+	border: 2px solid rgb(221, 221, 221);
+}
