@@ -1,0 +1,7 @@
+.idea/*
+vendor/*
+vendor
+composer
+composer-setup.php
+composer.phar
+.idea
