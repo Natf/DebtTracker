@@ -5,3 +5,4 @@ composer
 composer-setup.php
 composer.phar
 .idea
+.DS_Store
