@@ -9,13 +9,17 @@ if (isset($app)) {
         $post = $request->getParams();
         $register = new Register($post);
         if ($register->validate()) {
-            echo "registered";
             $user = new \Nat\DebtTracker\Users\Models\User($this->fluentPdo);
             $user->register($post);
-//            return $this->view->render('views::create-user', [
-//                'title' => "Your Debts",
-//                'debts' => $allDebts,
-//            ], $response);
+            $user = [
+                'email' => $user->email,
+                'name' => $user->name,
+                'id' => $user->id
+            ];
+            $_SESSION['user'] = $user;
+            return $response->withRedirect($app->getContainer()->get('router')->pathfor('ViewDebts'));
+        } else {
+            return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index') . '?registererror=1');
         }
     })->setName('Register');
 
@@ -23,11 +27,14 @@ if (isset($app)) {
         $post = $request->getParams();
         $user = new \Nat\DebtTracker\Users\Models\User($this->fluentPdo);
         if($user->login($post)) {
+            // todo this needs to be abstracted to a class
             $user = [
                 'email' => $user->email,
-                'name' => $user->name
+                'name' => $user->name,
+                'id' => $user->id
             ];
             $_SESSION['user'] = $user;
+            return $response->withRedirect($app->getContainer()->get('router')->pathfor('ViewDebts'));
         } else {
             return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index') . '?loginerror=1');
         }
@@ -36,5 +43,22 @@ if (isset($app)) {
     $app->get('/user/logout', function(Request $request, Response $response) use ($app) {
         session_destroy();
         return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index'));
+    });
+
+    $app->get('/user/contacts', function(Request $request, Response $response) use ($app) {
+        $user = new \Nat\DebtTracker\Users\Models\User($this->fluentPdo, $_SESSION['user']);
+        return $this->view->render('views::contacts', [
+            'title' => "Your Contacts",
+            'contacts' => $user->fetchContacts(),
+            'requestedContacts' => $user->fetchSentContactRequests(),
+            'pendingContacts' => $user->fetchContactRequests()
+        ], $response);
+    })->setName('ViewContacts');
+
+    $app->post('/user/addcontact', function(Request $request, Response $response) use ($app) {
+        $post = $request->getParams();
+        $user = new \Nat\DebtTracker\Users\Models\User($this->fluentPdo, $_SESSION['user']);
+        $user->addContact($post);
+        return $response->withRedirect($app->getContainer()->get('router')->pathfor('ViewContacts'));
     });
 }

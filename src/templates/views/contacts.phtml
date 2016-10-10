@@ -1,0 +1,48 @@
+<?php
+$this->layout('layouts::default', ['title' => $title])
+?>
+<div class="mainpage">
+    <div class="topinfo">
+        Your Contacts:<br>
+    </div><br>
+    <table id ='debttable'>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        <?php foreach($contacts as $contact) : ?>
+        <tr class="yourowed">
+            <td><?= $contact['name'] ?></td>
+            <td><?= $contact['email'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        <tr class="yourowed"><td colspan="2">Requests You've Sent</td></tr>
+        <?php foreach($requestedContacts as $contact) : ?>
+            <tr class="yourowed">
+                <td><?= $contact['name'] ?></td>
+                <td><?= $contact['email'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        <tr class="yourowed"><td colspan="2">Your Contact Requests</td></tr>
+        <?php foreach($pendingContacts as $contact) : ?>
+            <tr class="yourowed">
+                <td><?= $contact['name'] ?></td>
+                <td><?= $contact['email'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        <tr class = "youreowed">
+            <td>Enter email and click add to add a contact:</td>
+            <td>
+                <form action="/user/addcontact" method="POST">
+                    <input type="text" name="email">
+                    <input type="submit" value="Add">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php
+include 'adddebtfooter.php';
+?>
+</body>
