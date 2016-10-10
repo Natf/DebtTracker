@@ -5,8 +5,8 @@ namespace Nat\DebtTracker\Users\Models;
 class User
 {
     private $fluentPDO;
-    private $name;
-    private $email;
+    public $name;
+    public $email;
 
     public function __construct(\FluentPDO $fluentPDO)
     {
@@ -22,5 +22,25 @@ class User
             'email' => $args['email'],
             'password' => $passwordHash
         ])->execute();
+    }
+
+    public function login($args)
+    {
+        $email = $args['email'];
+
+        $user = $this->fluentPDO
+            ->from('Users')
+            ->select(null)
+            ->select('password, name')
+            ->where('email', $email)
+            ->fetchAll()[0];
+
+        if(password_verify($args['password'], $user['password'])) {
+            $this->name = $user['name'];
+            $this->email = $email;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

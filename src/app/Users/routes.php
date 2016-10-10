@@ -17,5 +17,24 @@ if (isset($app)) {
 //                'debts' => $allDebts,
 //            ], $response);
         }
-    })->setName('ViewDebts');
+    })->setName('Register');
+
+    $app->post('/user/login', function (Request $request, Response $response) use ($app) {
+        $post = $request->getParams();
+        $user = new \Nat\DebtTracker\Users\Models\User($this->fluentPdo);
+        if($user->login($post)) {
+            $user = [
+                'email' => $user->email,
+                'name' => $user->name
+            ];
+            $_SESSION['user'] = $user;
+        } else {
+            return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index') . '?loginerror=1');
+        }
+    })->setName('Login');
+
+    $app->get('/user/logout', function(Request $request, Response $response) use ($app) {
+        session_destroy();
+        return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index'));
+    });
 }

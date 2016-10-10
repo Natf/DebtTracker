@@ -2,8 +2,8 @@
     <div class = "container">
         <div class="navbar-header">
             <a href = "#" class = "navbar-brand">
-                <?php if(array_key_exists('uid',$_SESSION)): ?>
-                    Hello <? $_SESSION['name'] ?>
+                <?php if(array_key_exists('user',$_SESSION)): ?>
+                    Hello <?= $_SESSION['user']['name'] ?>
                 <?php else: ?>
                     Debt Tennis Tracker
                 <?php endif ?>
@@ -17,23 +17,22 @@
         </div>
         <div class = "collapse navbar-collapse" id="navHeaderCollapse">
             <ul class = "nav navbar-nav navbar-right">
-            <?php if(array_key_exists('uid',$_SESSION)) : ?>
+            <?php if(array_key_exists('user',$_SESSION)) : ?>
                 <?php
                     $links = [
-                        'profile.php',
-                        'contacts.php',
-                        'logout.php'
+                        'View Debts' => '/debts/view',
+                        'Your Contacts' => '/user/contacts',
+                        'Logout' => '/user/logout'
                     ];
-                    foreach ($links as $link) {
-                        if (strpos($_SERVER["PHP_SELF"], $link) !== false) : ?>
-                        <li class="active"><a
-                                href="../../app/models/<?= $link ?>"><?= ucfirst(substr($link, 0, strlen($link) - 4)) ?></a>
-                        </li>
-                        <?php endif;
-                    }
+                ?>
+                <?php foreach ($links as $string => $link) : ?>
+                    <li class="<?php echo ($_SERVER['REQUEST_URI'] == $link) ?  'active' : '' ; ?>">
+                        <a href="<?= $link ?>"><?= $string ?></a>
+                    </li>
+                <?php endforeach; ?>
 
-            else :
-                echo '	<form class="navbar-form navbar-right" action="../../app/models/loginsubmit.php" method="POST">
+            <?php else :
+                echo '	<form class="navbar-form navbar-right" action="user/login" method="POST">
 								<div class="form-group">
 									<input type="text" name="email" class="form-control" placeholder="Email">
 									<input type="password" name="password" class="form-control" placeholder="Password">
