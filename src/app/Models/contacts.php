@@ -33,7 +33,7 @@ if(!array_key_exists('uid',$_SESSION)){
 						echo "Error adding contact. Database error.";
 						break;
 					case 4:
-						echo "Error adding contact. User already added to contacts.";
+						echo "Error adding contact. Users already added to contacts.";
 						break;
 					case 5:
 						echo "Error adding contact. Can't add yourself as a contact.";

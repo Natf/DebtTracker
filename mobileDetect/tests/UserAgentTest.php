@@ -151,7 +151,7 @@ class UserAgentTest extends PHPUnit_Framework_TestCase
     {
         //make sure we're passed valid data
         if (!is_string($userAgent) || !is_bool($isMobile) || !is_bool($isTablet)) {
-            $this->markTestIncomplete("The User-Agent $userAgent does not have sufficient information for testing.");
+            $this->markTestIncomplete("The Users-Agent $userAgent does not have sufficient information for testing.");
 
             return;
         }

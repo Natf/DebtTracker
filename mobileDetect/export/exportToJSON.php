@@ -31,10 +31,10 @@ $json = array(
 				'version' => $detect->getScriptVersion(),
 
 				// All headers that trigger 'isMobile' to be 'true',
-				// before reaching the User-Agent match detection.
+				// before reaching the Users-Agent match detection.
 				'headerMatch' => $detect->getMobileHeaders(),
 
-				// All possible User-Agent headers.
+				// All possible Users-Agent headers.
 				'uaHttpHeaders' => $detect->getUaHttpHeaders(),
 
 				// All the regexes that trigger 'isMobile' or 'isTablet'

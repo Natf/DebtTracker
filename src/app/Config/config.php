@@ -20,9 +20,9 @@ $container['pdo'] = function ($container) {
     'mysql:host=%s;port=%d;dbname=%s;charset=utf8',
     '127.0.0.1',
     '3306',
-    'my_db'
+    'debttracker'
     );
-    return new \PDO($dsn, 'root', '');
+    return new \PDO($dsn, 'dbuser', '123');
 };
 
 $container['fluentPdo'] = function ($container) {

@@ -121,7 +121,7 @@ class BasicTest extends PHPUnit_Framework_TestCase
         //verify some of the headers work with the translated getter
         $this->assertNull($md->getHttpHeader('Remote-Addr'));
         $this->assertNull($md->getHttpHeader('Server-Software'));
-        $this->assertEquals($headers['HTTP_USER_AGENT'], $md->getHttpHeader('User-Agent'));
+        $this->assertEquals($headers['HTTP_USER_AGENT'], $md->getHttpHeader('Users-Agent'));
     }
 
     /**

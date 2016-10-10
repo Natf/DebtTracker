@@ -80,7 +80,7 @@ return array(
 
         'Mozilla/5.0 (Linux; U; Jolla; Sailfish; Mobile; rv:20.0) Gecko/20.0 Firefox/20.0 Sailfish Browser/1.0 like Safari/535.19' => array('isMobile' => true, 'isTablet' => true),
 
-        // Generic Firefox User-agents
+        // Generic Firefox Users-agents
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Gecko_user_agent_string_reference#Firefox_OS
         'Mozilla/5.0 (Mobile; rv:26.0) Gecko/26.0 Firefox/26.0' => array('isMobile' => true, 'isTablet' => false),
         'Mozilla/5.0 (Tablet; rv:26.0) Gecko/26.0 Firefox/26.0' => array('isMobile' => true, 'isTablet' => true),

@@ -6,7 +6,7 @@
  * Motto: "Every business should have a mobile detection script to detect mobile readers"
  *
  * Mobile_Detect is a lightweight PHP class for detecting mobile devices (including tablets).
- * It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.
+ * It uses the Users-Agent string combined with specific HTTP headers to detect the mobile environment.
  *
  * @author      Current authors: Serban Ghita <serbanghita@gmail.com>
  *                               Nick Ilyin <nick.ilyin@gmail.com>
@@ -85,7 +85,7 @@ class Mobile_Detect
     protected $cache = array();
 
     /**
-     * The User-Agent HTTP header is stored in here.
+     * The Users-Agent HTTP header is stored in here.
      * @var string
      */
     protected $userAgent = null;
@@ -490,7 +490,7 @@ class Mobile_Detect
     );
 
     /**
-     * List of mobile User Agents.
+     * List of mobile Users Agents.
      *
      * @var array
      */
@@ -550,12 +550,12 @@ class Mobile_Detect
 
     /**
      * All possible HTTP headers that represent the
-     * User-Agent string.
+     * Users-Agent string.
      *
      * @var array
      */
     protected static $uaHttpHeaders = array(
-        // The default User-Agent string.
+        // The default Users-Agent string.
         'HTTP_USER_AGENT',
         // Header can occur on devices using Opera Mini.
         'HTTP_X_OPERAMINI_PHONE_UA',
@@ -569,7 +569,7 @@ class Mobile_Detect
     );
 
     /**
-     * The individual segments that could exist in a User-Agent string. VER refers to the regular
+     * The individual segments that could exist in a Users-Agent string. VER refers to the regular
      * expression defined in the constant self::VER.
      *
      * @var array
@@ -645,7 +645,7 @@ class Mobile_Detect
      *
      * @param array  $headers   Specify the headers as injection. Should be PHP _SERVER flavored.
      *                          If left empty, will use the global _SERVER['HTTP_*'] vars instead.
-     * @param string $userAgent Inject the User-Agent header. If null, will use HTTP_USER_AGENT
+     * @param string $userAgent Inject the Users-Agent header. If null, will use HTTP_USER_AGENT
      *                          from the $headers array instead.
      */
     public function __construct(
@@ -712,7 +712,7 @@ class Mobile_Detect
      * Simply null is returned.
      *
      * @param string $header The name of the header to retrieve. Can be HTTP compliant such as
-     *                       "User-Agent" or "X-Device-User-Agent" or can be php-esque with the
+     *                       "Users-Agent" or "X-Device-Users-Agent" or can be php-esque with the
      *                       all-caps, HTTP_ prefixed, underscore seperated awesomeness.
      *
      * @return string|null The value of the header.
@@ -745,7 +745,7 @@ class Mobile_Detect
 
     /**
      * Get all possible HTTP headers that
-     * can contain the User-Agent string.
+     * can contain the Users-Agent string.
      *
      * @return array List of HTTP headers.
      */
@@ -796,7 +796,7 @@ class Mobile_Detect
     }
 
     /**
-     * Set the User-Agent to be used.
+     * Set the Users-Agent to be used.
      *
      * @param string $userAgent The user agent string to set.
      *
@@ -829,7 +829,7 @@ class Mobile_Detect
     }
 
     /**
-     * Retrieve the User-Agent.
+     * Retrieve the Users-Agent.
      *
      * @return string|null The user agent if it's set.
      */
@@ -1052,7 +1052,7 @@ class Mobile_Detect
     }
 
     /**
-     * Find a detection rule that matches the current User-agent.
+     * Find a detection rule that matches the current Users-agent.
      *
      * @param  null    $userAgent deprecated
      * @return boolean
@@ -1076,7 +1076,7 @@ class Mobile_Detect
     /**
      * Search for a certain key in the rules array.
      * If the key is found the try to match the corresponding
-     * regex against the User-Agent.
+     * regex against the Users-Agent.
      *
      * @param string $key
      *
@@ -1197,11 +1197,11 @@ class Mobile_Detect
     /**
      * Some detection rules are relative (not standard),
      * because of the diversity of devices, vendors and
-     * their conventions in representing the User-Agent or
+     * their conventions in representing the Users-Agent or
      * the HTTP headers.
      *
      * This method will be used to check custom regexes against
-     * the User-Agent string.
+     * the Users-Agent string.
      *
      * @param $regex
      * @param  string $userAgent
@@ -1253,7 +1253,7 @@ class Mobile_Detect
     }
 
     /**
-     * Check the version of the given property in the User-Agent.
+     * Check the version of the given property in the Users-Agent.
      * Will return a float number. (eg. 2_0 will return 2.0, 4.3.1 will return 4.31)
      *
      * @param string $propertyName The name of the property. See self::getProperties() array
