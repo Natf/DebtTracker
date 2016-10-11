@@ -22,14 +22,14 @@ class User
         $this->name = $args['name'];
         $this->email = $args['email'];
 
-        $id = $this->id = $this->fluentPDO->insertInto('Users')->values([
-            'name' => $args['name'],
-            'email' => $args['email'],
-            'password' => $passwordHash
-        ])->execute();
+//        $id = $this->id = $this->fluentPDO->insertInto('Users')->values([
+//            'name' => $args['name'],
+//            'email' => $args['email'],
+//            'password' => $passwordHash
+//        ])->execute();
 
         return [
-            'id' => $id,
+            'id' => 1,
             'name' => $args['name'],
             'email' => $args['email']
         ];
@@ -59,5 +59,23 @@ class User
             'pendingContactRequests' => $pendingContactRequests,
             'contactRequests' => $contactRequests
         ];
+    }
+
+    public function confirmContact($contactId)
+    {
+        $this->userTunnel->setContactConfirm($contactId, $this->user['id'], 1);
+    }
+
+    public function addContact($contactEmail)
+    {
+        $contactId = $this->userTunnel->getUserByEmail($contactEmail)['id'];
+        $contact = $this->userTunnel->fetchContact($this->user['id'], $contactId);
+
+        if(!empty($contact['contactsRequests'])) {
+            $this->userTunnel->setContactConfirm($contactId, $this->user['id'], 1);
+        } elseif (empty($contact['contactsRequested'])) {
+
+            $this->userTunnel->addContact($this->user['id'], $contactId);
+        }
     }
 }

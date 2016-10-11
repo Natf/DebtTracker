@@ -29,8 +29,32 @@ class User
             ->select('Users.name, Users.email')
             ->leftJoin('Users ON Users.id = Contacts.contact_id')
             ->where('confirmed = 1')
-            ->where('user_id', $user['id'])
+            ->where('(user_id = ? OR contact_id = ?)', $user['id'], $user['id'])
             ->fetchAll();
+    }
+
+    public function fetchContact($userId, $contactId)
+    {
+         $yourRequested = $this->fluentPdo
+             ->from('Contacts')
+             ->select(null)
+             ->select('user_id, confirmed')
+             ->where('user_id', $userId)
+             ->where('contact_id', $contactId)
+             ->fetchAll();
+
+         $yourRequests = $this->fluentPdo
+             ->from('Contacts')
+             ->select(null)
+             ->select('user_id, confirmed')
+             ->where('contact_id', $userId)
+             ->where('user_id', $contactId)
+             ->fetchAll();
+
+         return [
+             'contactsRequested' => $yourRequested,
+             'contactsRequests' => $yourRequests
+         ];
     }
 
     public function fetchSentContactRequests($user)
@@ -57,13 +81,25 @@ class User
             ->fetchAll();
     }
 
-    public function addContact($user)
+    public function addContact($userId, $contactId)
+    {
+        return $this->fluentPdo
+            ->insertInto('Contacts')
+            ->values([
+                'user_id' => $userId,
+                'contact_id' => $contactId,
+                'request_sent_date' => date('Y-m-d H:i:s')
+            ])
+            ->execute();
+    }
+
+    public function setContactConfirm($userId, $contactId, $confirmed)
     {
         return $this->fluentPdo
             ->update('Contacts')
-            ->set(['confirmed' => 1])
-            ->where('user_id', 1)
-            ->where('contact_id', $user['id'])
+            ->set(['confirmed' => $confirmed])
+            ->where('user_id', $userId)
+            ->where('contact_id', $contactId)
             ->execute();
     }
 }

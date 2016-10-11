@@ -43,15 +43,16 @@ if (isset($app)) {
     })->setName('ViewContacts');
 
     $app->post('/user/addcontact', function(Request $request, Response $response) use ($app) {
-        $post = $request->getParams();
+        $contactEmail = $request->getParam('email');
         $user = new User($this->fluentPdo, $_SESSION['user']);
-        $user->addContact($post);
+        $user->addContact($contactEmail);
         return $response->withRedirect($app->getContainer()->get('router')->pathfor('ViewContacts'));
     });
 
     $app->get('/user/contacts/confirm', function(Request $request, Response $response) use ($app) {
-        $contact = $request->getParams('user_id');
+        $contact = $request->getParam('user_id');
         $user = new User($this->fluentPdo, $_SESSION['user']);
         $user->confirmContact($contact);
+        return $response->withRedirect($app->getContainer()->get('router')->pathfor('ViewContacts'));
     });
 }
