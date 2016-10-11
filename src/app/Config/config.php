@@ -28,3 +28,7 @@ $container['pdo'] = function ($container) {
 $container['fluentPdo'] = function ($container) {
     return new FluentPDO($container['pdo']);
 };
+
+if(array_key_exists('user', $_SESSION)) {
+    $container['user'] = $_SESSION['user'];
+}

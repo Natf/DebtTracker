@@ -4,108 +4,66 @@ namespace Nat\DebtTracker\Users\Models;
 
 class User
 {
-    private $fluentPDO;
-    public $id;
-    public $name;
-    public $email;
+    private $fluentPdo;
 
-    public function __construct(\FluentPDO $fluentPDO, $user = null)
+    public function __construct(\FluentPDO $fluentPdo)
     {
-        $this->fluentPDO = $fluentPDO;
-        if ($user !== null) {
-            $this->id = $user['id'];
-            $this->name = $user['name'];
-            $this->email = $user['email'];
-        }
+        $this->fluentPdo = $fluentPdo;
     }
 
-    public function register($args)
+    public function getUserByEmail($email)
     {
-        $passwordHash = password_hash($args['password'], PASSWORD_DEFAULT);
-
-        $this->name = $args['name'];
-        $this->email = $args['email'];
-
-        $this->id = $this->fluentPDO->insertInto('Users')->values([
-            'name' => $args['name'],
-            'email' => $args['email'],
-            'password' => $passwordHash
-        ])->execute();
-    }
-
-    public function login($args)
-    {
-        $email = $args['email'];
-
-        $user = $this->fluentPDO
+        return $this->fluentPdo
             ->from('Users')
             ->select(null)
-            ->select('id, password, name')
+            ->select('id, password, name, email')
             ->where('email', $email)
             ->fetchAll()[0];
-
-        if(password_verify($args['password'], $user['password'])) {
-            $this->name = $user['name'];
-            $this->email = $email;
-            $this->id = $user['id'];
-            return true;
-        } else {
-            return false;
-        }
     }
 
-    public function fetchContacts()
+    public function fetchContacts($user)
     {
-        return $this->fluentPDO
+        return $this->fluentPdo
             ->from('Contacts')
             ->select(null)
             ->select('Users.name, Users.email')
             ->leftJoin('Users ON Users.id = Contacts.contact_id')
             ->where('confirmed = 1')
-            ->where('user_id', $this->id)
+            ->where('user_id', $user['id'])
             ->fetchAll();
     }
 
-    public function fetchSentContactRequests()
+    public function fetchSentContactRequests($user)
     {
-        return $this->fluentPDO
+        return $this->fluentPdo
             ->from('Contacts')
             ->select(null)
             ->select('Users.name, Users.email')
             ->leftJoin('Users ON Users.id = Contacts.contact_id')
             ->where('confirmed = 0')
-            ->where('user_id', $this->id)
+            ->where('user_id', $user['id'])
             ->fetchAll();
     }
 
-    public function fetchContactRequests()
+    public function fetchContactRequests($user)
     {
-        return $this->fluentPDO
+        return $this->fluentPdo
             ->from('Contacts')
             ->select(null)
-            ->select('Users.name, Users.email')
+            ->select('Users.name, Users.email, Users.id')
             ->leftJoin('Users ON Users.id = Contacts.user_id')
             ->where('confirmed = 0')
-            ->where('contact_id', $this->id)
+            ->where('contact_id', $user['id'])
             ->fetchAll();
     }
 
-    public function addContact($args)
+    public function addContact($user)
     {
-        $contact = $this->fluentPDO
-            ->from('Users')
-            ->select(null)
-            ->select('id')
-            ->where('email', $args['email'])
-            ->fetchAll()[0];
-
-        return $this->fluentPDO
-            ->insertInto('Contacts')
-            ->values([
-                'user_id' => $this->id,
-                'contact_id' => $contact['id'],
-                'request_sent_date' => date("Y-m-d H:i:s"),
-            ])
+        return $this->fluentPdo
+            ->update('Contacts')
+            ->set(['confirmed' => 1])
+            ->where('user_id', 1)
+            ->where('contact_id', $user['id'])
             ->execute();
     }
 }

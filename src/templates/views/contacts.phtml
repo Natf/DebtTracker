@@ -11,24 +11,25 @@ $this->layout('layouts::default', ['title' => $title])
             <th>Email</th>
             <th></th>
         </tr>
-        <?php foreach($contacts as $contact) : ?>
+        <?php foreach($contacts['liveContacts'] as $contact) : ?>
         <tr class="yourowed">
             <td><?= $contact['name'] ?></td>
             <td><?= $contact['email'] ?></td>
             </tr>
         <?php endforeach; ?>
         <tr class="yourowed"><td colspan="2">Requests You've Sent</td></tr>
-        <?php foreach($requestedContacts as $contact) : ?>
+        <?php foreach($contacts['pendingContactRequests'] as $contact) : ?>
             <tr class="yourowed">
                 <td><?= $contact['name'] ?></td>
                 <td><?= $contact['email'] ?></td>
             </tr>
         <?php endforeach; ?>
         <tr class="yourowed"><td colspan="2">Your Contact Requests</td></tr>
-        <?php foreach($pendingContacts as $contact) : ?>
+        <?php foreach($contacts['contactRequests'] as $contact) : ?>
             <tr class="yourowed">
                 <td><?= $contact['name'] ?></td>
                 <td><?= $contact['email'] ?></td>
+                <td><a href="/user/contacts/confirm?user_id=<?= $contact['id'] ?>">confirm</a></td>
             </tr>
         <?php endforeach; ?>
         <tr class = "youreowed">
