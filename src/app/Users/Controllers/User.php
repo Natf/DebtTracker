@@ -15,24 +15,16 @@ class User
         $this->user = $user;
     }
 
-    public function register($args)
+    public function register($post)
     {
-        $passwordHash = password_hash($args['password'], PASSWORD_DEFAULT);
+        $passwordHash = password_hash($post['password'], PASSWORD_DEFAULT);
 
-        $this->name = $args['name'];
-        $this->email = $args['email'];
+        $this->user['name'] = $post['name'];
+        $this->user['email'] = $post['email'];
 
-//        $id = $this->id = $this->fluentPDO->insertInto('Users')->values([
-//            'name' => $args['name'],
-//            'email' => $args['email'],
-//            'password' => $passwordHash
-//        ])->execute();
+        $this->user['id'] = $this->userTunnel->addUser(array_merge($this->user, ['password' => $passwordHash]));
 
-        return [
-            'id' => 1,
-            'name' => $args['name'],
-            'email' => $args['email']
-        ];
+        return $this->user;
     }
 
     public function login($args)

@@ -21,6 +21,11 @@ class User
             ->fetchAll()[0];
     }
 
+    public function addUser($user)
+    {
+        return $this->fluentPdo->insertInto('Users')->values($user)->execute();
+    }
+
     public function fetchContacts($user)
     {
         return $this->fluentPdo
