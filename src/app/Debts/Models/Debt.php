@@ -1,32 +1,47 @@
 <?php
 
-namespace Nat\DebtTracker\Models;
+namespace Nat\DebtTracker\Debts\Models;
 
 class Debt
 {
-    public $uid;
-    public $name;
-    public $email;
-    public $dateCreated;
-    public $description;
-    public $amount;
-    public $amountVal;
-    public $activeDebts = [];
+    private $fluentPdo;
 
-    public function __construct($uid, $name, $email, $dateCreated, $description, $amountVal)
+    public function __construct(\FluentPDO $fluentPdo)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->dateCreated = $dateCreated;
-        $this->description = $description;
-        $this->amountVal = $amountVal;
-        $this->amount = $this->getStringFromValue();
+        $this->fluentPdo = $fluentPdo;
     }
 
-    public function getStringFromValue()
+    public function getActiveDebtsForUser($userId)
     {
-        $amount = round($this->amountVal, 2);
+        return $this->fluentPdo
+            ->from('Debts_Paid')
+            ->select(null)
+            ->select('*')
+            ->leftJoin('Debts ON Debts.id = Debts_Paid.debt_id')
+            ->where('Debts.fully_paid = 0')
+            ->where('Debts_Paid.user_id', $userId)
+            ->fetchAll();
+    }
 
-        return "£$amount";
+    public function getDebtsPaidForDebt($debtId)
+    {
+        return $this->fluentPdo
+            ->from('Debts_Paid')
+            ->select(null)
+            ->select('debt_id, user_id, amount_paid, id, name')
+            ->leftJoin('Users ON Debts_Paid.user_id = Users.id')
+            ->where('debt_id', $debtId)
+            ->orderBy('amount_paid DESC')
+            ->fetchAll();
+    }
+
+    public function getAmountOfUsersForDebt($debtId)
+    {
+        return $this->fluentPdo
+            ->from('Debts_Paid')
+            ->select(null)
+            ->select('COUNT(*) AS count')
+            ->where('debt_id', $debtId)
+            ->fetchAll()[0]['count'];
     }
 }

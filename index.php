@@ -7,7 +7,7 @@ require_once __DIR__ . '/src/app/Config/config.php';
 $app = new Slim\App($container);
 
 // routes
-require_once APP_ROOT . '/app/ViewDebts/routes.php';
+require_once APP_ROOT . '/app/Debts/routes.php';
 require_once APP_ROOT . '/app/Users/routes.php';
 require_once APP_ROOT . '/app/Index/routes.php';
 
