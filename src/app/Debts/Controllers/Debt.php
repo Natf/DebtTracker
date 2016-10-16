@@ -15,6 +15,27 @@ class Debt
         $this->userId = $userId;
     }
 
+    public function getDebtsForUserGroupedByContacts($debts = null)
+    {
+        if($debts != null) {
+            $debts = $this->getDebtsForUser();
+        }
+
+        $contactDebts = [];
+        foreach ($debts as $debt) {
+            foreach ($debt['payment_info']['transactions'] as $transaction) {
+                $amount = (isset($contactDebts[$transaction['id']]['amount'])) ? $contactDebts[$transaction['id']]['amount'] : 0;
+                $amount += $transaction['amount'] * (($debt['owed'] == 1) ? 1 : -1);
+                $contactDebts[$transaction['id']] = [
+                    'name' => $transaction['name'],
+                    'amount' => $amount
+                ];
+            }
+        }
+
+        return $contactDebts;
+    }
+
     public function getDebtsForUser()
     {
         $debts = $this->debtTunnel->getActiveDebtsForUser($this->userId);
@@ -70,9 +91,9 @@ class Debt
 
     private function calculatePaidFrom(&$userPaid, &$usersPaid)
     {
-        while ($userPaid['amount_pending'] > 0) {
+        while ($userPaid['amount_pending'] > 1) {
             foreach ($usersPaid as &$userOwing) {
-                if (($userOwing['amount_pending'] < 0) && ($userPaid['amount_pending'] != 0)) {
+                if (($userOwing['amount_pending'] < 0) && ($userPaid['amount_pending'] > 1)) {
                     if ($userPaid['amount_pending'] < ($userOwing['amount_pending'] * -1)) {
                         $this->addPayment($userPaid, $userOwing, $userPaid['amount_pending']);
                     } else {
@@ -85,6 +106,7 @@ class Debt
 
     public function addPayment(&$userPaid, &$userOwing, $amount)
     {
+        $amount = round($amount, 2);
         if (!array_key_exists('paid_from', $userPaid)) {
             $userPaid['paid_from'] = [];
         }

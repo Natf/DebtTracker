@@ -3,7 +3,8 @@
         "slim/slim": "3.x-dev",
         "league/plates": "^3.1",
         "lichtner/fluentpdo": "^1.0",
-        "respect/validation": "^1.1"
+        "respect/validation": "^1.1",
+        "twbs/bootstrap": "^3.3"
     },
     "autoload": {
         "psr-4": {

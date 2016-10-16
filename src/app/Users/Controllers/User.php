@@ -40,6 +40,11 @@ class User
         }
     }
 
+    public function getLiveContactsForUser()
+    {
+        return $this->userTunnel->fetchContacts($this->user);
+    }
+
     public function getAllContactsForUser()
     {
         $liveContacts = $this->userTunnel->fetchContacts($this->user);

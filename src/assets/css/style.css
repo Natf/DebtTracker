@@ -17,3 +17,22 @@
 .dt-debt-table-expand-section {
 	background-color: lightgray;
 }
+
+.dt-contact-debt-table {
+	display: block;
+	float: left;
+	overflow-x: scroll;
+}
+
+.dt-contact-debt-table-column {
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+
+.dt-contact-debt-table-head {
+	font-weight: bold;
+	margin-right: 10px;
+	border-right: 2px solid black;
+	padding-right: 20px;
+}
