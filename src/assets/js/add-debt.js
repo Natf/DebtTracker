@@ -8,7 +8,7 @@ $(window).on('load', function() {
 
         $.each(buttons, function(index, element) {
             if(index > 0) {
-                $(this).attr('style', 'width:' + (100/(buttons.length -1 )) + '%;');
+                $(this).attr('style', 'width:' + (75/(buttons.length -1 )) + '%;');
             }
         });
     }
@@ -32,8 +32,12 @@ $(window).on('load', function() {
 
     function updateProgress() {
         var counterTexts = $('.dt-add-debt-counter-text');
-        $(counterTexts.get(currentSlide)).show();
-        counterTexts.not(counterTexts.get(currentSlide)).hide();
+        $($('.dt-add-debt-counter').slice(0, currentSlide)).addClass('dt-add-debt-counter-complete')
+        $($('.dt-add-debt-counter').get(currentSlide)).addClass('dt-add-debt-counter-active');
+        $('.dt-add-debt-counter').not($('.dt-add-debt-counter').get(currentSlide)).removeClass('dt-add-debt-counter-active');
+        var counters = counterTexts.filter(':visible');
+        counters.hide();
+        $(counterTexts.get(currentSlide)).animate({width: "toggle"}, 300);
     }
 
     function initProgress(){
@@ -43,10 +47,10 @@ $(window).on('load', function() {
             var text = $('<div class="dt-add-debt-counter-text">');
             step.text(index + 1);
             text.text($(this).attr('data-value'))
-            counter.append(step, text);
+            counter.append(text, step);
             $('.dt-add-debt-progress').append(counter);
         });
-        $('.dt-add-debt-counter-text').hide();
+        $('.dt-add-debt-counter-text').not($('.dt-add-debt-counter-text').get(0)).hide();
         updateProgress();
     }
 
@@ -174,5 +178,9 @@ $(window).on('load', function() {
         }).done( function( data ) {
             window.location.href = "/debts/view";
         });
+    });
+
+    $('.dt-add-debt-button[data-value="cancel"]').on('click', function() {
+        window.location.href = "/debts/view";
     });
 });

@@ -25,6 +25,8 @@
 <body>
 <?= $this->insert('partials::navbar') ?>
 <?= $this->section('content') ?>
-<?= $this->insert('partials::add-debt-footer') ?>
+<?php if(!isset($hideFooter) || !$hideFooter) : ?>
+    <?= $this->insert('partials::add-debt-footer') ?>
+<?php endif;?>
 </body>
 </html>

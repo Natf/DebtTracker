@@ -3,6 +3,9 @@
 	margin-bottom: 10px;
 	font-weight: bold;
 }
+.navbar {
+	margin-bottom: 0 !important;
+}
 
 .dt-debt-table {
 	display: block;
