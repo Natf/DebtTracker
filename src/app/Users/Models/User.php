@@ -28,14 +28,26 @@ class User
 
     public function fetchContacts($user)
     {
-        return $this->fluentPdo
+        $contacts = $this->fluentPdo
             ->from('Contacts')
             ->select(null)
             ->select('Users.name, Users.email, Users.id')
             ->leftJoin('Users ON Users.id = Contacts.contact_id')
             ->where('confirmed = 1')
-            ->where('(user_id = ? OR contact_id = ?)', $user['id'], $user['id'])
+            ->where('user_id', $user['id'])
             ->fetchAll();
+
+        $contacts = array_merge($contacts, $this->fluentPdo
+            ->from('Contacts')
+            ->select(null)
+            ->select('Users.name, Users.email, Users.id')
+            ->leftJoin('Users ON Users.id = Contacts.user_id')
+            ->where('confirmed = 1')
+            ->where('contact_id', $user['id'])
+            ->fetchAll()
+        );
+
+        return $contacts;
     }
 
     public function fetchContact($userId, $contactId)
