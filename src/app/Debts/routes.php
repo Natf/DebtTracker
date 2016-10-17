@@ -30,7 +30,18 @@ if (isset($app)) {
         $user = new \Nat\DebtTracker\Users\Controllers\User($this->fluentPdo, $_SESSION['user']);
         return $this->view->render('views::add-debt', [
             'title' => 'Add A Debt',
+            'user' => $_SESSION['user'],
             'contacts' => $user->getLiveContactsForUser()
         ], $response);
+    });
+
+    $app->post('/debts/create', function(Request $request, Response $response) use ($app) {
+        $post = $request->getParams();
+        $debt = new Debt(new DebtTunnel($this->fluentPdo), $_SESSION['user']['id']);
+        if($debt->addDebt($post)) {
+            return 'successful';
+        } else {
+            return 'unsuccessful';
+        }
     });
 }

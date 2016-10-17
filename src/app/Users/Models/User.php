@@ -31,7 +31,7 @@ class User
         return $this->fluentPdo
             ->from('Contacts')
             ->select(null)
-            ->select('Users.name, Users.email')
+            ->select('Users.name, Users.email, Users.id')
             ->leftJoin('Users ON Users.id = Contacts.contact_id')
             ->where('confirmed = 1')
             ->where('(user_id = ? OR contact_id = ?)', $user['id'], $user['id'])

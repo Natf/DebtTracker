@@ -11,6 +11,31 @@ class Debt
         $this->fluentPdo = $fluentPdo;
     }
 
+    public function addDebt($amount, $description, $fullyPaid = 0)
+    {
+        return $this->fluentPdo
+            ->insertInto('Debts')
+            ->values([
+                'amount' => $amount,
+                'description' => $description,
+                'date_created' => date("Y-m-d H:i:s"),
+                'fully_paid' => $fullyPaid
+            ])
+            ->execute();
+    }
+
+    public function addDebtsPaid($debtId, $userId, $amount)
+    {
+        return $this->fluentPdo
+            ->insertInto('Debts_Paid')
+            ->values([
+                'debt_id' => $debtId,
+                'user_id' => $userId,
+                'amount_paid' => $amount
+            ])
+            ->execute();
+    }
+
     public function getActiveDebtsForUser($userId)
     {
         return $this->fluentPdo

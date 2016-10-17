@@ -54,12 +54,11 @@ $(window).on('load', function() {
     initProgress();
 
     function displaySliderValue(slider, value) {
-        slider.slider("option", "value", value);
-        slider.siblings('.dt-add-debt-slider-paid').val(value);
+        slider.slider("option", "value", value.toFixed(2));
+        slider.siblings('.dt-add-debt-slider-paid').val(value.toFixed(2));
     }
 
     function weightSliders(sliders, change) {
-        console.log(change);
         if(change < 0) {
             $.each(sliders, function() {
                 var value = (parseFloat($(this).slider( "option", "value" )) - (change/sliders.length));
@@ -80,7 +79,6 @@ $(window).on('load', function() {
             if(exit) {
                 return false;
             }
-            console.log('slider length ' + sliders.length);
             $.each(sliders, function(index, element) {
                 var value = (parseFloat($(this).slider( "option", "value" )) - (change/sliders.length));
                 displaySliderValue($(this), value);
@@ -90,7 +88,7 @@ $(window).on('load', function() {
 
     function addSlidersForContacts() {
         $('.dt-add-debt-contact-selected').each(function() {
-            var slider = $('<div class="dt-add-debt-input dt-add-debt-slider">');
+            var slider = $('<div class="dt-add-debt-input dt-add-debt-slider" data-value="' + $(this).attr('value') + '">');
             var label = $('<label>');
             label.text($(this).text() + ": £");
             var input = $('<div class="dt-add-debt-slider-input">');
@@ -103,7 +101,6 @@ $(window).on('load', function() {
             slide : function(e, ui) {
                 var change = ui.value.toFixed(2) - parseFloat($(this).attr('value')).toFixed(2);
                 $(this).attr('value', ui.value.toFixed(2));
-                console.log(change);
                 weightSliders($('.dt-add-debt-slider-input').not($(this)), change)
                 $(this).siblings('input').val(ui.value.toFixed(2));
             },
@@ -111,8 +108,16 @@ $(window).on('load', function() {
                 $(this).attr('value', ui.value.toFixed(2));
             }
         })
-        $('.dt-add-debt-slider-paid').on('change', function() {
-            $(this).siblings('.dt-add-debt-slider-input').slider( "option", "value", $(this).val());
+        var oldValue;
+        $('.dt-add-debt-slider-paid').on('change', function(event) {
+            var change = $(this).val() - oldValue;
+            oldValue = $(this).val();
+            var sibling = $(this).siblings('.dt-add-debt-slider-input');
+            sibling.slider( "option", "value", $(this).val());
+            weightSliders($('.dt-add-debt-slider-input').not(sibling), change)
+        }).focus(function(){
+            // Get the value when input gains focus
+             oldValue = $(this).val();
         })
 
         $('.dt-add-debt-slider-input').slider( "disable" );
@@ -156,19 +161,16 @@ $(window).on('load', function() {
 
     $('.dt-add-debt-button[data-value="submit"]').on('click', function() {
         var users = []
-        $('.dt-add-debt-contact.dt-add-debt-contact-selected').each(function() {
-            users += [
-                'user_id' => $(this).val(),
-
-            ];
+        $('.dt-add-debt-input.dt-add-debt-slider').each(function() {
+            users.push(JSON.stringify({
+                'user_id': $(this).attr('data-value'),
+                'amount_paid': $(this).children('.dt-add-debt-slider-paid').val()
+            }));
         });
         $.post("/debts/create",{
             debt_amount: $('.dt-add-debt-total-debt-amount').val(),
             description: $('.dt-add-debt-description').val(),
-            'users[]' : [
-                'userId' => ,
-            <div class="dt-add-debt-contact" value="<?= $contact['id'] ?>">
-            ]
+            'users[]' : users
         }).done( function( data ) {
             window.location.href = "/debts/view";
         });

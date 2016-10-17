@@ -28,10 +28,11 @@ $this->layout('layouts::default', ['title' => $title])
                 <input class="dt-add-debt-total-debt-amount" name="debtAmount">
             </div>
             <h3>Amount Paid By:</h3>
-            <div class="dt-add-debt-input dt-add-debt-slider dt-add-debt-slider-you"
-            <label>You:
+            <div class="dt-add-debt-input dt-add-debt-slider dt-add-debt-slider-you" data-value="<?= $user['id'] ?>">
+                <label>You:</label>
                 <div class="dt-add-debt-slider-input"></div>
                 <input class="dt-add-debt-slider-paid" name="paid">
+            </div>
         </div>
 
     </div>

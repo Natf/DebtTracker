@@ -15,6 +15,19 @@ class Debt
         $this->userId = $userId;
     }
 
+    public function addDebt($post)
+    {
+        $debt_id = $this->debtTunnel->addDebt($post['debt_amount'], $post['description']);
+        foreach ($post['users'] as $user) {
+            $user = json_decode($user);
+            $this->debtTunnel->addDebtsPaid(
+                $debt_id, $user->user_id, $user->amount_paid
+            );
+        }
+
+        return true;
+    }
+
     public function getDebtsForUserGroupedByContacts($debts = null)
     {
         if($debts != null) {
