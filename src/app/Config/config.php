@@ -16,13 +16,18 @@ $container['view'] = function ($container) {
 $container['settings']['displayErrorDetails'] = true;
 
 $container['pdo'] = function ($container) {
+    $MYSQL_HOST_NAME = '127.0.0.1';
+    $MYSQL_PORT = '3306';
+    $MYSQL_USERNAME = 'dbuser';
+    $MYSQL_PASSWORD = '123';
+
     $dsn = sprintf(
     'mysql:host=%s;port=%d;dbname=%s;charset=utf8',
-    '127.0.0.1',
-    '3306',
+        $MYSQL_HOST_NAME,
+        $MYSQL_PORT ,
     'debttracker'
     );
-    return new \PDO($dsn, 'dbuser', '123');
+    return new \PDO($dsn, $MYSQL_USERNAME, $MYSQL_PASSWORD);
 };
 
 $container['fluentPdo'] = function ($container) {
