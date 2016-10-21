@@ -18,19 +18,29 @@ class Debt
     public function addDebt($post)
     {
         $debt_id = $this->debtTunnel->addDebt($post['debt_amount'], $post['description']);
+        $currentDebts = $this->getDebtsForUserGroupedByContacts();
+
         foreach ($post['users'] as $user) {
             $user = json_decode($user);
             $this->debtTunnel->addDebtsPaid(
                 $debt_id, $user->user_id, $user->amount_paid
             );
+
+//            $this->condenseDebts($currentDebts, $user);
         }
 
         return true;
     }
 
+    public function condenseDebtsForUser($debts, $user)
+    {
+        var_dump($debts);
+        var_dump($user);die;
+    }
+
     public function getDebtsForUserGroupedByContacts($debts = null)
     {
-        if($debts != null) {
+        if($debts === null) {
             $debts = $this->getDebtsForUser();
         }
 
@@ -80,7 +90,7 @@ class Debt
     {
         foreach ($usersPaid as $index => &$userPaid) {
             $userPaid['amount_pending'] = $userPaid['amount_owed'] =
-                $userPaid['amount_paid'] - ($debt['amount'] / sizeof($usersPaid));
+                $userPaid['amount_paid'] - ($debt['amount'] / (float)sizeof($usersPaid));
         }
 
         foreach ($usersPaid as $index => &$userPaid) {
@@ -104,9 +114,10 @@ class Debt
 
     private function calculatePaidFrom(&$userPaid, &$usersPaid)
     {
-        while ($userPaid['amount_pending'] > 1) {
+//        var_dump($usersPaid); die;
+        while ($userPaid['amount_pending'] > 1) { //todo
             foreach ($usersPaid as &$userOwing) {
-                if (($userOwing['amount_pending'] < 0) && ($userPaid['amount_pending'] > 1)) {
+                if (($userOwing['amount_pending'] < 0) && ($userPaid['amount_pending'] > 0.01)) {
                     if ($userPaid['amount_pending'] < ($userOwing['amount_pending'] * -1)) {
                         $this->addPayment($userPaid, $userOwing, $userPaid['amount_pending']);
                     } else {

@@ -1,35 +1,33 @@
 <h2><?= $tableTitle ?>:</h2>
 <div class="dt-debt-table">
-        <div class="dt-debt-table-head dt-debt-table-row">
-            <div>Created On</div>
-            <div>Total Debt Amount</div>
-            <div>Amount</div>
-        </div>
-        <?php foreach ($debts as $debt): ?>
-            <div class="dt-debt-table-debt">
-                <div class="dt-debt-table-row">
-                    <div><?= $debt['date_created'] ?></div>
-                    <div><?= $debt['amount'] ?></div>
-                    <div><?= $debt['payment_info']['amount_owed'] ?></div>
-                    <div><a href='paydebtconfirm.php?debt0=<?= $debt['debt_id'] ?>' class='btn btn-warning'>Pay Now</a></div>
-                </div>
-                <div class="dt-debt-table-row">
-                    <div>Description</div>
-                    <div class="dt-debt-table-colspan-2"><?= $debt['description'] ?></div>
-                    <div class="dt-debt-table-expand" data-value="<?= $debt['debt_id'] ?>">View Details</div>
-                </div>
-                <div class="dt-debt-table-expand-section" data-value="<?= $debt['debt_id'] ?>" >
-                    <?php foreach($debt['payment_info']['transactions'] as $transaction) : ?>
-                        <div class="dt-debt-table-row">
-                            <div><?= $transaction['name'] ?></div>
-                            <div><?= $transaction['amount'] ?></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+    <div class="dt-debt-table-head dt-debt-table-row">
+        <div>Created On</div>
+        <div>Total Debt Amount</div>
+        <div class="dt-debt-table-head-twice"><?= $tableAmount ?></div>
+    </div>
+    <?php foreach ($debts as $debt): ?>
+        <div class="dt-debt-table-debt">
+            <div class="dt-debt-table-row">
+                <div><?= $debt['date_created'] ?></div>
+                <div><?= $debt['amount'] ?></div>
+                <div><?= $debt['payment_info']['amount_owed'] ?></div>
+                <div><a href='<?= $tableAction . $debt['debt_id'] ?>' class='btn btn-<?= $tableClass ?>'><?= $tableActionString ?></a></div>
             </div>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+            <div class="dt-debt-table-row">
+                <div>Description</div>
+                <div class="dt-debt-table-colspan-2"><?= $debt['description'] ?></div>
+                <div class="dt-debt-table-expand" data-value="<?= $debt['debt_id'] ?>">View Details</div>
+            </div>
+            <div class="dt-debt-table-expand-section" data-value="<?= $debt['debt_id'] ?>" >
+                <?php foreach($debt['payment_info']['transactions'] as $transaction) : ?>
+                    <div class="dt-debt-table-row">
+                        <div><?= $transaction['name'] ?></div>
+                        <div><?= $transaction['amount'] ?></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>

@@ -25,10 +25,24 @@
 <div class = "container">
     <div class = "row">
         <div class = "col-md-6">
-            <?php $this->insert('partials::debt-table', ['debts' => $debtsOwedToYou, 'tableTitle' => 'Debts Owed To You']) ?>
+            <?php $this->insert('partials::debt-table', [
+                'debts' => $debtsOwedToYou,
+                'tableTitle' => 'Debts Owed To You',
+                'tableAmount' => 'Amount You\'re Owed',
+                'tableClass' => 'warning',
+                'tableAction' => '/debts/sendreminder/',
+                'tableActionString' => 'Send Reminder',
+            ]) ?>
         </div>
         <div class = "col-md-6">
-            <?php $this->insert('partials::debt-table', ['debts' => $debtsYouOwe, 'tableTitle' => 'Debts You Owe']) ?>
+            <?php $this->insert('partials::debt-table', [
+                'debts' => $debtsYouOwe,
+                'tableTitle' => 'Debts You Owe',
+                'tableAmount' => 'Amount You Owe',
+                'tableClass' => 'danger',
+                'tableAction' => '/debts/pay/',
+                'tableActionString' => 'Pay Now',
+            ]) ?>
         </div>
     </div>
 </div>

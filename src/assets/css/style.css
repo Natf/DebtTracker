@@ -11,6 +11,10 @@
 	display: block;
 }
 
+.dt-debt-table-head-twice {
+	width: 50% !important ;
+}
+
 .dt-debt-table-row > div {
 	display: inline-block;
 	width: 25%;

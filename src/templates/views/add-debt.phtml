@@ -12,7 +12,7 @@ $this->layout('layouts::default', ['title' => $title, 'hideFooter' => true])
                 <h2>Select contacts for this debt</h2>
                 <h4>Please select at least one contact</h4>
             </div>
-            <div class="dt-add-debt-content-scroll">
+            <div class="dt-add-debt-content-scroll" style="margin-top:-30px;">
                 <?php foreach($contacts as $contact): ?>
                     <div class="dt-add-debt-contact" value="<?= $contact['id'] ?>"><?= $contact['name'] ?></div>
                 <?php endforeach; ?>
