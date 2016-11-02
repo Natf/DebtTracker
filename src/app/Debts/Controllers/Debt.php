@@ -18,24 +18,15 @@ class Debt
     public function addDebt($post)
     {
         $debt_id = $this->debtTunnel->addDebt($post['debt_amount'], $post['description']);
-        $currentDebts = $this->getDebtsForUserGroupedByContacts();
 
         foreach ($post['users'] as $user) {
             $user = json_decode($user);
             $this->debtTunnel->addDebtsPaid(
                 $debt_id, $user->user_id, $user->amount_paid
             );
-
-//            $this->condenseDebts($currentDebts, $user);
         }
 
         return true;
-    }
-
-    public function condenseDebtsForUser($debts, $user)
-    {
-        var_dump($debts);
-        var_dump($user);die;
     }
 
     public function getDebtsForUserGroupedByContacts($debts = null)
@@ -114,8 +105,7 @@ class Debt
 
     private function calculatePaidFrom(&$userPaid, &$usersPaid)
     {
-//        var_dump($usersPaid); die;
-        while ($userPaid['amount_pending'] > 1) { //todo
+        while ($userPaid['amount_pending'] > 1) {
             foreach ($usersPaid as &$userOwing) {
                 if (($userOwing['amount_pending'] < 0) && ($userPaid['amount_pending'] > 0.01)) {
                     if ($userPaid['amount_pending'] < ($userOwing['amount_pending'] * -1)) {

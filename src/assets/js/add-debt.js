@@ -176,7 +176,7 @@ $(window).on('load', function() {
             description: $('.dt-add-debt-description').val(),
             'users[]' : users
         }).done( function( data ) {
-            window.location.href = "/debts/view";
+            // window.location.href = "/debts/view";
         });
     });
 
