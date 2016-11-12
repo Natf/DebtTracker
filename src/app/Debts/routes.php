@@ -44,4 +44,20 @@ if (isset($app)) {
             return 'unsuccessful';
         }
     });
+
+    $app->get('/debts/paycontact', function(Request $request, Response $response) use ($app) {
+        $user = new \Nat\DebtTracker\Users\Controllers\User($this->fluentPdo, $_SESSION['user']);
+        $params = $request->getParams();
+        $debt = new Debt(new DebtTunnel($this->fluentPdo), $_SESSION['user']['id']);
+
+        if(array_key_exists('contact_id', $params) && !empty($params['contact_id'])) {
+            return $this->view->render('views::pay-debt', [
+                'title' => 'Add A Debt',
+                'user' => $_SESSION['user'],
+                'contactDebt' => $debt->getDebtsBetweenContact($params['contact_id']),
+            ], $response);
+        } else {
+            return $response->withRedirect($app->getContainer()->get('router')->pathfor('ViewDebts'));
+        }
+    });
 }

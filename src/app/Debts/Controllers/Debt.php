@@ -29,6 +29,25 @@ class Debt
         return true;
     }
 
+    public function getDebtsBetweenContact($contactId)
+    {
+        $total = $this->getDebtsForUserGroupedByContacts()[$contactId];
+        $debts = $this->getDebtsForUser();
+
+        $userDebts = array_merge($total, ['debts' => $debts]);
+        foreach ($userDebts['debts'] as $debtIndex => $debt) {
+            foreach ($debt['payment_info']['transactions'] as $index => $transaction) {
+                if ($transaction['id'] == $contactId) {
+                    break;
+                } else if ($index >= (sizeof($debt['payment_info']['transactions']) - 1)) {
+                    unset($userDebts['debts'][$debtIndex]);
+                }
+            }
+        }
+
+        return $userDebts;
+    }
+
     public function getDebtsForUserGroupedByContacts($debts = null)
     {
         if($debts === null) {
