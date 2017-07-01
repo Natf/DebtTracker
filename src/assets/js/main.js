@@ -225,8 +225,12 @@ exports.default = DebtCreator;
 
 var _DebtCreator = require('./Modules/DebtCreator.js');
 
+var _DebtCreator2 = _interopRequireDefault(_DebtCreator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 window.onload = function () {
-    var debtCreator = new _DebtCreator.DebtCreator();
+    var debtCreator = new _DebtCreator2.default();
     debtCreator.init();
     console.log('es5');
 };
