@@ -1,6 +1,7 @@
 .idea/*
 vendor/*
 vendor
+.vagrant/
 composer
 composer-setup.php
 composer.phar
