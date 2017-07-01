@@ -1,0 +1,38 @@
+{
+  "name": "debttracker",
+  "version": "1.0.0",
+  "description": "first-package",
+  "main": "index.js",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-eslint": "^4.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^6.1.3",
+    "browserify": "^11.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Natf/DebtTracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Natf/DebtTracker/issues"
+  },
+  "homepage": "https://github.com/Natf/DebtTracker#readme"
+}

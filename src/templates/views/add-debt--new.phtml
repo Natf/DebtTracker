@@ -1,0 +1,116 @@
+<?php
+$this->layout('layouts::default--scss', ['title' => $title, 'hideFooter' => true])
+?>
+
+
+<script type="application/javascript">
+    function check() {
+        "use strict";
+
+        if (typeof Symbol == "undefined") return false;
+        try {
+            var test = eval('"use strict"; class foo {}');
+        } catch (e) {
+            return false;
+        }
+        if (test === "use strict") return false;
+
+        return true;
+    }
+
+    if (check()) {
+        console.log('es6');
+    } else {
+        console.log('es5');
+        var imported = document.createElement('script');
+        imported.src = '/src/assets/js/main.js';
+        document.head.appendChild(imported);
+    }
+
+</script>
+
+<script type="module">
+    import DebtCreator from '/src/assets/es6/Modules/DebtCreator'
+    let debtCreator = new DebtCreator();
+    debtCreator.init();
+</script>
+
+<form class="dt-create-debt">
+    <div class="dt-create-debt__progress-bar">
+    </div>
+    <div class="dt-create-debt__container" data-value="Choose Debt">
+        <div class="dt-create-debt__content">
+            <div class="dt-create-debt__content--instructions">
+                <h2>Select contacts for this debt</h2>
+                <h4>Please select at least one contact</h4>
+            </div>
+            <div class="dt-create-debt__content--scroll" style="margin-top:-30px;">
+                <?php foreach($contacts as $contact): ?>
+                    <div class="dt-create-debt__li" value="<?= $contact['id'] ?>"><?= $contact['name'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <div class="dt-create-debt__container" data-value="Add Contact">
+        <div class="dt-create-debt__content">
+            <div class="dt-create-debt__content--instructions">
+                <h2>Select contacts for this debt</h2>
+                <h4>Please select at least one contact</h4>
+            </div>
+            <div class="dt-create-debt__content--scroll" style="margin-top:-30px;">
+                <?php foreach($contacts as $contact): ?>
+                    <div class="dt-create-debt_li" value="<?= $contact['id'] ?>"><?= $contact['name'] ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <div class="dt-create-debt__container" data-value="Enter Debt Amount">
+        <div class="dt-create-debt__content">
+            <div class="dt-create-debt__content--instructions">
+                <h2>Enter an amount for the debt</h2>
+                <h4>
+                    You can also set the amount paid by each user,
+                    by default you will be set as having paid the
+                    full amount of the debt.
+                </h4>
+            </div>
+            <div class="dt-create-debt__input">
+                <label>Total Debt Amount: £</label>
+                <input class="dt-create-debt__input--debt-total" name="debtAmount">
+            </div>
+            <div class="dt-create-debt__content--scroll">
+                <h3>Amount Paid By:</h3>
+                <div class="dt-create-debt__input dt-create-debt__slider dt-create-debt__slider--you" data-value="<?= $user['id'] ?>">
+                    <label>You:</label>
+                    <div class="dt-create-debt__slider--input"></div>
+                    <input class="dt-create-debt__slider--paid" name="paid">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <div class="dt-create-debt__container" data-value="Add a description">
+        <div class="dt-create-debt__content">
+            <div class="dt-create-debt__content--instructions">
+                <h2>Add a description for the debt</h2>
+                <h4>
+                    Enter a helpful description to help you remember
+                    what the debt is about. You don't have to
+                    enter a description.
+                </h4>
+            </div>
+            <div class="dt-create-debt__input">
+                <label>Description:</label>
+                <textarea class="dt-create-debt__description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="dt-create-debt__controls">
+        <div class="dt-create-debt__button" data-value="cancel">Cancel</div>
+        <div class="dt-create-debt__button" data-value="back">Back</div>
+        <div class="dt-create-debt__button" data-value="next">Next</div>
+        <div class="dt-create-debt__button" data-value="submit">Add Debt</div>
+    </div>
+</form>
+

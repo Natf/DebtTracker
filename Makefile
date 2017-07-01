@@ -1,4 +1,7 @@
 SASS = sass --no-cache
 
 sass:
-	${SASS} --style compressed ./src/app/assets/scss/app.scss ./src/app/assets/css/site.css
+	${SASS} src/assets/scss/app.scss src/assets/css/site.css
+
+es6:
+	browserify src/assets/es6/main.js -t babelify -o src/assets/js/main.js

@@ -191,11 +191,17 @@
     }
   }
 
+  &__input {
+    margin: 0 30px;
+    width: 60%;
+    display: inline-block;
+  }
+
   &__slider {
     width: 100%;
     line-height: 30px;
 
-    &--input {
+    &__input {
       margin: 0 30px;
       width: 60%;
       display: inline-block;
