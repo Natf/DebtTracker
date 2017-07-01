@@ -1,7 +1,7 @@
 .idea/*
 vendor/*
 vendor
-.vagrant/
+puphpet
 composer
 composer-setup.php
 composer.phar
