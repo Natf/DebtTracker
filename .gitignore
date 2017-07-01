@@ -2,6 +2,7 @@
 vendor/*
 vendor
 puphpet
+vagrant
 composer
 composer-setup.php
 composer.phar
