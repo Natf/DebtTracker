@@ -75,4 +75,11 @@ class User
             $this->userTunnel->addContact($this->user['id'], $contactId);
         }
     }
+
+    public function resetPasswordForUser($getParams)
+    {
+        $user = $this->userTunnel->getUserByEmail($getParams['email']);
+        $password = password_hash($getParams['password'], PASSWORD_DEFAULT);
+        $this->userTunnel->setPasswordForUserId($user['id'],  $password);
+    }
 }

@@ -119,4 +119,13 @@ class User
             ->where('contact_id', $contactId)
             ->execute();
     }
+
+    public function setPasswordForUserId($id, $password)
+    {
+        return $this->fluentPdo
+            ->update('Users')
+            ->set(['password' => $password])
+            ->where('id', $id)
+            ->execute();
+    }
 }

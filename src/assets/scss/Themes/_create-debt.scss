@@ -1,0 +1,213 @@
+.dt-create-debt {
+  &__button {
+    display: inline-block;
+    text-align: center;
+    max-width: 75%;
+    min-width: 37.5%;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+    margin-right: -4px;
+    text-shadow: 1px 1px 8px rgba(0,0,0, 0.2);
+    font-size: 20px;
+    height: 100px;
+    line-height: 60px;
+
+    &[data-value="cancel"] {
+      background-color: #d9534f;
+      &:hover {
+        background-color: #c9302c;
+      }
+    }
+
+    &[data-value="submit"] {
+      background-color: #5cb85c;
+      &:hover {
+        background-color: #449d44;
+      }
+    }
+
+    &:hover {
+      background-color: #286090;
+    }
+  }
+
+  &__container {
+    width: 100%;
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    display: block;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  &__progress-bar {
+    height: 60px;
+    color: white;
+    display: block;
+    width: 100%;
+    background-color: lightgray;
+  }
+
+  &__counter {
+    background-color: #449d44;
+
+    &--step {
+      display: inline-block;
+      text-align: center;
+      border: solid white 2px;
+      width: 40px;
+      height: 40px;
+      margin-top: 10px;
+      border-radius: 100px;
+      margin-left: auto;
+      -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+      -moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+      box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+      line-height: 34px;
+      margin-right: 10px;
+      float: right;
+    }
+
+    &--icon {
+      display: inline-block;
+      line-height: 60px;
+      font-size: 25px;
+      height: 100%;
+      width: 10%;
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      float: left;
+    }
+
+    &--text {
+      display: inline-block;
+      overflow: hidden;
+      float: right;
+      margin-left: 10px;
+      max-width: 80%;
+      text-shadow: 1px 1px 8px rgba(0,0,0, 0.2);
+      min-width: 63%;
+    }
+
+    &--active {
+      background-color: #5cb85c;
+      width: 70%;
+      & > .dt-create-debt__counter--step {
+        float: right;
+      }
+    }
+  }
+
+  &__controls {
+    float: left;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    background-color: #337ab7;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+  }
+
+  &__content {
+    width: 100%;
+    margin-top: 0;
+
+    &--scroll {
+      overflow-y: scroll;
+    }
+
+    &--instructions {
+      padding: 20px 30px;
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+      -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+      z-index: 100;
+      margin-bottom: 30px;
+
+      & > h2 {
+        margin-top: 0;
+      }
+
+      & > h4 {
+        font-size: 18px;
+        font-weight: normal;
+      }
+    }
+  }
+
+  &__li {
+    display: block;
+    width: 100%;
+    background-color: lightgray;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    line-height: 30px;
+    text-align: left;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px 0px;
+    padding-left: 10%;
+
+    &:after {
+      content: ' ';
+      display: block;
+      float: right;
+      margin-right: 10%;
+      border: solid white 2px;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      font-size: 40px;
+      text-align: center;
+      padding-top: -4px;
+      line-height: 16px;
+    }
+
+    &:hover {
+      background-color: #449d44;
+      &:after {
+        content: '+';
+      }
+    }
+
+    &--selected {
+      background-color: #5cb85c;
+      &:hover:after {
+        content: '-';
+      }
+    }
+  }
+
+  &__slider {
+    width: 100%;
+    line-height: 30px;
+
+    &--input {
+      margin: 0 30px;
+      width: 60%;
+      display: inline-block;
+    }
+
+    & > input {
+      width: 10%;
+    }
+
+    & > label {
+      width: 30%;
+      display: inline;
+    }
+  }
+}

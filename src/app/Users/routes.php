@@ -34,6 +34,18 @@ if (isset($app)) {
         return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index'));
     });
 
+    $app->get('/forgottenyourpassword', function(Request $request, Response $response) use ($app) {
+        return $this->view->render('views::forgotten-password-form', [
+            'title' => "Forgotten Your Password"
+        ], $response);
+    });
+
+    $app->post('/forgottenyourpassword', function(Request $request, Response $response) use ($app) {
+        $user = new User($this->fluentPdo);
+        $user->resetPasswordForUser($request->getParams());
+        return $response->withRedirect($app->getContainer()->get('router')->pathFor('Index'));
+    });
+
     $app->get('/user/contacts', function(Request $request, Response $response) use ($app) {
         $user = new User($this->fluentPdo, $_SESSION['user']);
         return $this->view->render('views::contacts', [

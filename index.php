@@ -13,7 +13,7 @@ require_once APP_ROOT . '/app/Index/routes.php';
 
 $app->add(function (\Slim\Http\Request $request, \Slim\Http\Response $response, $next) use ($app) {
     $page = $request->getUri()->getPath();
-    if (($page !== '/' && $page !== '/register' && $page !== '/user/register' && $page !== '/user/login') && !array_key_exists('user', $_SESSION)) {
+    if (($page !== '/' && $page !== '/forgottenyourpassword' & $page !== '/register' && $page !== '/user/register' && $page !== '/user/login') && !array_key_exists('user', $_SESSION)) {
         return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index'));
     }
     return $next($request, $response);
