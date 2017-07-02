@@ -1,10 +1,10 @@
 <form class="dt-create-debt">
     <div class="dt-create-debt__progress-bar">
     </div>
-    <?= $this->insert('partials::DebtCreator/choose-debt', ['user' => $user, 'contacts' => $contacts]) ?>
-    <?= $this->insert('partials::DebtCreator/add-contacts', ['user' => $user, 'contacts' => $contacts]) ?>
-    <?= $this->insert('partials::DebtCreator/debt-amount', ['user' => $user, 'contacts' => $contacts]) ?>
-    <?= $this->insert('partials::DebtCreator/debt-description', ['user' => $user, 'contacts' => $contacts]) ?>
+    <?php $this->insert("partials::DebtCreator/choose-debt", ["user" => $user, "contacts" => $contacts]); ?>
+    <?php $this->insert("partials::DebtCreator/add-contacts", ["user" => $user, "contacts" => $contacts]); ?>
+    <?php $this->insert("partials::DebtCreator/debt-amount", ["user" => $user, "contacts" => $contacts]); ?>
+    <?php $this->insert("partials::DebtCreator/debt-description", ["user" => $user, "contacts" => $contacts]); ?>
     <div class="dt-create-debt__controls">
         <div class="dt-create-debt__button" data-value="cancel">Cancel</div>
         <div class="dt-create-debt__button" data-value="back">Back</div>

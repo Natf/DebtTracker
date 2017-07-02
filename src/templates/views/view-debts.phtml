@@ -1,6 +1,7 @@
 <?php
-    $this->layout('layouts::default', ['title' => $title, 'user' => $user, 'contacts' => $contacts])
+    $this->layout('layouts::default', ['title' => $title, 'user' => $user, 'contacts' => $contacts]);
 ?>
+
 <div class="container">
     <div class="jumbotron">
         <h2>Debts For Contacts:</h2>
@@ -44,6 +45,29 @@
                 'tableActionString' => 'Pay Now',
             ]) ?>
         </div>
+    </div>
+</div>
+
+<script type="module" module-name="DebtCreator">
+    import DebtCreator from "/src/assets/es6/Modules/DebtCreator"
+    let debtCreator = new DebtCreator();
+    debtCreator.init();
+</script>
+
+<div id="myModal" class="modal fade dt-modal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header" style="display: none;">
+            </div>
+            <div class="modal-body" style="height: 100%; padding: 0;">
+                <?php $this->insert("partials::DebtCreator/add-debt", ["user" => $user, "contacts" => $contacts]); ?>
+            </div>
+            <div class="modal-footer" style="display: none;">
+            </div>
+        </div>
+
     </div>
 </div>
 

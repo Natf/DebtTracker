@@ -1,6 +1,7 @@
 import DebtCreator from './Modules/DebtCreator.js';
 
-window.onload = function () {
+window.onload = () => {
+    console.log('loading modules');
     let allModules = {
         "DebtCreator": DebtCreator
     };
@@ -10,5 +11,6 @@ window.onload = function () {
         let moduleName = $(module).attr('module-name');
         let moduleLoaded = new allModules[moduleName]();
         moduleLoaded.init();
+        console.log('loading ' + $(module).attr('module-name'));
     });
 };

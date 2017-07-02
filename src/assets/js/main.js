@@ -155,6 +155,7 @@ var _DebtCreator2 = _interopRequireDefault(_DebtCreator);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 window.onload = function () {
+    console.log('loading modules');
     var allModules = {
         "DebtCreator": _DebtCreator2.default
     };
@@ -164,6 +165,7 @@ window.onload = function () {
         var moduleName = $(module).attr('module-name');
         var moduleLoaded = new allModules[moduleName]();
         moduleLoaded.init();
+        console.log('loading ' + $(module).attr('module-name'));
     });
 };
 

@@ -20,11 +20,27 @@ $app->add(function (\Slim\Http\Request $request, \Slim\Http\Response $response, 
 });
 
 $app->get('/', function (\Slim\Http\Request $request, \Slim\Http\Response $response) use ($app) {
+    $response = $response->withoutHeader('Content-Length');
     if (array_key_exists('user',$_SESSION)) {
         return $response->withRedirect($app->getContainer()->get('router')->pathfor('ViewDebts'));
     } else {
         return $response->withRedirect($app->getContainer()->get('router')->pathfor('Index'));
     }
 });
+
+/**
+ * @param  \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
+ * @param  \Psr\Http\Message\ResponseInterface      $response PSR7 response
+ * @param  callable                                 $next     Next middleware
+ */
+function (\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response, callable $next) {
+    /**
+     * @var $response \Psr\Http\Message\ServerRequestInterface
+     */
+    $response = $next($request, $response);
+    return $response->withoutHeader('Content-Length');
+
+//    return $response;
+};
 
 $app->run();

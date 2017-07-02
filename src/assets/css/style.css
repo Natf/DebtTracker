@@ -4,6 +4,10 @@ body, html { height:100%; }
 	z-index: 1000 !important;
 }
 
+.modal-content {
+	border: none !important;
+}
+
 .dt-footer {
 	z-index: 900 !important;
 }

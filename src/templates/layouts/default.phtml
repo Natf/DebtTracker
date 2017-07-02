@@ -24,10 +24,10 @@
 </head>
 
 <body>
-<?= $this->insert('partials::navbar') ?>
-<?= $this->section('content') ?>
+<?= $this->insert("partials::navbar") ?>
+<?= $this->section("content") ?>
 <?php if(!isset($hideFooter) || !$hideFooter) : ?>
-    <?= $this->insert('partials::add-debt-footer', ['user' => $user, 'contacts' => $contacts]) ?>
+    <?php $this->insert("partials::add-debt-footer", ["user" => $user, "contacts" => $contacts]); ?>
 <?php endif;?>
 </body>
 </html>
