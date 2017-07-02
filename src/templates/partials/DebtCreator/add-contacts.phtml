@@ -1,0 +1,13 @@
+<div class="dt-create-debt__container" data-value="Add Contacts">
+    <div class="dt-create-debt__content">
+        <div class="dt-create-debt__content--instructions">
+            <h2>Select contacts for this debt</h2>
+            <h4>Please select at least one contact</h4>
+        </div>
+        <div class="dt-create-debt__content--scroll">
+            <?php foreach($contacts as $contact): ?>
+                <div class="dt-create-debt__li" value="<?= $contact['id'] ?>"><?= $contact['name'] ?></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>

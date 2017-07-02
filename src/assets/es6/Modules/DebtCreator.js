@@ -4,7 +4,9 @@ export default class DebtCreator {
         this.form = $('form.dt-create-debt');
         this.pages = $('div.dt-create-debt__container');
         this.progressBar = $('.dt-create-debt__progress-bar');
+        this.controls = $('div.dt-create-debt__controls')
         this.currentPage = 0;
+        this.debtTypeAction = '';
     }
 
     init() {
@@ -12,16 +14,20 @@ export default class DebtCreator {
         this.initProgress();
         this.updateProgress();
         this.initControls();
+        this.initSplitControls();
+        this.updateAll();
     }
 
     initProgress() {
         this.pages.each((index, page) => {
             let counter = $('<div class="dt-create-debt__counter">');
+            let stepContainer = $('<div class="dt-create-debt__counter--step-container">');
             let step = $('<div class="dt-create-debt__counter--step">');
             let text = $('<div class="dt-create-debt__counter--text">');
             step.text(index + 1);
+            stepContainer.append(step);
             text.text($(page).attr('data-value'));
-            counter.append(step, text);
+            counter.append(stepContainer, text);
             this.progressBar.append(counter);
         });
         this.counters = $('.dt-create-debt__counter');
@@ -56,6 +62,17 @@ export default class DebtCreator {
         });
     }
 
+    initSplitControls() {
+        this.splitControls = $('div.dt-create-debt__split-content--container');
+        this.splitControls.each((index, control) => {
+            $(control).on('click', () => {
+               this.currentPage++;
+               this.updateAll();
+               this.debtTypeAction = $(control).attr('action');
+            });
+        });
+    }
+
     updateAll() {
         this.updateMenu();
         this.updateProgress();
@@ -85,7 +102,13 @@ export default class DebtCreator {
     }
 
     updatePage() {
+        let currentPage = $(this.pages.get(this.currentPage));
+        if (currentPage.attr('hide-controls') === "true") {
+            this.controls.hide();
+        } else {
+            this.controls.show();
+        }
         this.pages.not(this.pages.get(this.currentPage)).hide();
-        $(this.pages.get(this.currentPage)).show();
+        currentPage.show();
     }
 }

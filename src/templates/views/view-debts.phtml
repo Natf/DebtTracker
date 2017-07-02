@@ -1,5 +1,5 @@
 <?php
-    $this->layout('layouts::default', ['title' => $title])
+    $this->layout('layouts::default', ['title' => $title, 'user' => $user, 'contacts' => $contacts])
 ?>
 <div class="container">
     <div class="jumbotron">
@@ -57,5 +57,7 @@
         });
     });
 </script>
+
+
 
     <link href="/src/assets/css/add-debt.css" rel="stylesheet" type="text/css" />

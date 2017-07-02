@@ -16,7 +16,9 @@ var DebtCreator = function () {
         this.form = $('form.dt-create-debt');
         this.pages = $('div.dt-create-debt__container');
         this.progressBar = $('.dt-create-debt__progress-bar');
+        this.controls = $('div.dt-create-debt__controls');
         this.currentPage = 0;
+        this.debtTypeAction = '';
     }
 
     _createClass(DebtCreator, [{
@@ -26,6 +28,8 @@ var DebtCreator = function () {
             this.initProgress();
             this.updateProgress();
             this.initControls();
+            this.initSplitControls();
+            this.updateAll();
         }
     }, {
         key: 'initProgress',
@@ -34,11 +38,13 @@ var DebtCreator = function () {
 
             this.pages.each(function (index, page) {
                 var counter = $('<div class="dt-create-debt__counter">');
+                var stepContainer = $('<div class="dt-create-debt__counter--step-container">');
                 var step = $('<div class="dt-create-debt__counter--step">');
                 var text = $('<div class="dt-create-debt__counter--text">');
                 step.text(index + 1);
+                stepContainer.append(step);
                 text.text($(page).attr('data-value'));
-                counter.append(step, text);
+                counter.append(stepContainer, text);
                 _this.progressBar.append(counter);
             });
             this.counters = $('.dt-create-debt__counter');
@@ -76,6 +82,20 @@ var DebtCreator = function () {
             });
         }
     }, {
+        key: 'initSplitControls',
+        value: function initSplitControls() {
+            var _this3 = this;
+
+            this.splitControls = $('div.dt-create-debt__split-content--container');
+            this.splitControls.each(function (index, control) {
+                $(control).on('click', function () {
+                    _this3.currentPage++;
+                    _this3.updateAll();
+                    _this3.debtTypeAction = $(control).attr('action');
+                });
+            });
+        }
+    }, {
         key: 'updateAll',
         value: function updateAll() {
             this.updateMenu();
@@ -109,8 +129,14 @@ var DebtCreator = function () {
     }, {
         key: 'updatePage',
         value: function updatePage() {
+            var currentPage = $(this.pages.get(this.currentPage));
+            if (currentPage.attr('hide-controls') === "true") {
+                this.controls.hide();
+            } else {
+                this.controls.show();
+            }
             this.pages.not(this.pages.get(this.currentPage)).hide();
-            $(this.pages.get(this.currentPage)).show();
+            currentPage.show();
         }
     }]);
 

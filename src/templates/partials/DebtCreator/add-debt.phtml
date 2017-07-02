@@ -1,13 +1,3 @@
-<?php
-$this->layout('layouts::default', ['title' => $title, 'hideFooter' => true, 'user' => $user, 'contacts' => $contacts])
-?>
-
-<script type="module" module-name="DebtCreator">
-    import DebtCreator from '/src/assets/es6/Modules/DebtCreator'
-    let debtCreator = new DebtCreator();
-    debtCreator.init();
-</script>
-
 <form class="dt-create-debt">
     <div class="dt-create-debt__progress-bar">
     </div>
@@ -22,4 +12,3 @@ $this->layout('layouts::default', ['title' => $title, 'hideFooter' => true, 'use
         <div class="dt-create-debt__button" data-value="submit">Add Debt</div>
     </div>
 </form>
-

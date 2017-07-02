@@ -1,3 +1,5 @@
-todo add module loader for es5
-todo add module loader for es6
 todo add debt type option to debt creator
+todo finish add debt form functionality
+todo finish modal for add debt on desktop
+todo convert circled numbers to icons or images, icons pref
+todo properly abstract forms and get form module

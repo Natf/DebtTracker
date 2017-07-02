@@ -1,0 +1,25 @@
+<div class="dt-create-debt__container" data-value="Enter Debt Amount">
+    <div class="dt-create-debt__content">
+        <div class="dt-create-debt__content--instructions">
+            <h2>Enter an amount for the debt</h2>
+            <h4>
+                You can also set the amount paid by each user,
+                by default you will be set as having paid the
+                full amount of the debt.
+            </h4>
+        </div>
+        <div class="dt-create-debt__input">
+            <label>Total Debt Amount: £</label>
+            <input class="dt-create-debt__input--debt-total" name="debtAmount">
+        </div>
+        <div class="dt-create-debt__content--scroll">
+            <h3>Amount Paid By:</h3>
+            <div class="dt-create-debt__input dt-create-debt__slider dt-create-debt__slider--you" data-value="<?= $user['id'] ?>">
+                <label>You:</label>
+                <div class="dt-create-debt__slider--input"></div>
+                <input class="dt-create-debt__slider--paid" name="paid">
+            </div>
+        </div>
+    </div>
+
+</div>

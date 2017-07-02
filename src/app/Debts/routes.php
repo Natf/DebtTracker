@@ -11,6 +11,7 @@ if (isset($app)) {
         $allDebts = $debtFetcher->getDebtsForUser();
         $contactDebts = $debtFetcher->getDebtsForUserGroupedByContacts($allDebts);
         $owedToYou = $youOwe = [];
+        $user = new \Nat\DebtTracker\Users\Controllers\User($this->fluentPdo, $_SESSION['user']);
         foreach ($allDebts as $debt) {
             if($debt['owed'] == 1) {
                 array_push($owedToYou, $debt);
@@ -22,7 +23,9 @@ if (isset($app)) {
             'title' => 'Your Debts',
             'contactDebts' => $contactDebts,
             'debtsOwedToYou' => $owedToYou,
-            'debtsYouOwe' => $youOwe
+            'debtsYouOwe' => $youOwe,
+            'user' => $user,
+            'contacts' => $user->getLiveContactsForUser()
         ], $response);
     })->setName('ViewDebts');
 
