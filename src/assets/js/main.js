@@ -25,24 +25,68 @@ var DebtCreator = function () {
             this.pages.not(this.pages.first()).hide();
             this.initProgress();
             this.updateProgress();
+            this.initControls();
         }
     }, {
         key: 'initProgress',
         value: function initProgress() {
             var _this = this;
 
-            this.pages.each(function (index, element) {
+            this.pages.each(function (index, page) {
                 var counter = $('<div class="dt-create-debt__counter">');
                 var step = $('<div class="dt-create-debt__counter--step">');
                 var text = $('<div class="dt-create-debt__counter--text">');
                 step.text(index + 1);
-                text.text($(element).attr('data-value'));
+                text.text($(page).attr('data-value'));
                 counter.append(text, step);
                 _this.progressBar.append(counter);
             });
             this.counterTexts = $('.dt-create-debt__counter--text');
             this.counters = $('.dt-create-debt__counter');
             this.counterTexts.not(this.counterTexts.get(0)).hide();
+        }
+    }, {
+        key: 'initControls',
+        value: function initControls() {
+            var _this2 = this;
+
+            this.buttons = {};
+            $('.dt-create-debt__button').each(function (index, button) {
+                _this2.buttons[$(button).attr('data-value')] = $(button);
+            });
+
+            this.buttons['submit'].hide();
+
+            this.buttons['cancel'].on('click', function () {
+                window.location.href = "/debts/view";
+            });
+
+            this.buttons['back'].on('click', function () {
+                _this2.currentPage--;
+                _this2.updateAll();
+            });
+
+            this.buttons['back'].on('click', function () {
+                _this2.currentPage--;
+                _this2.updateAll();
+            });
+
+            this.buttons['next'].on('click', function () {
+                _this2.currentPage++;
+                _this2.updateAll();
+            });
+
+            this.buttons['submit'].on('click', function () {
+                _this2.form.submit();
+                _this2.updateAll();
+            });
+        }
+    }, {
+        key: 'updateAll',
+        value: function updateAll() {
+            this.updateMenu();
+            this.updateProgress();
+            this.updatePage();
         }
     }, {
         key: 'updateProgress',
@@ -54,42 +98,23 @@ var DebtCreator = function () {
             visibleCounterTexts.hide();
             $(visibleCounterTexts.get(this.currentPage)).animate({ width: "toggle" }, 300);
         }
-
-        //     function updateMenuSize() {
-        //
-        //         var buttons = $('.dt-create-debt-button:visible');
-        //         $.each(buttons, function(index, element) {
-        //                 if(index > 0) {
-        //                     $(this).attr('style', 'width:' + (75/(buttons.length -1 )) + '%;');
-        //                 }
-        //             });
-        //     }
-        //
-        //     function updateMenu() {
-        //         updateProgress();
-        //         if(currentSlide == 0) {
-        //             $('.dt-create-debt-button[data-value="back"]').hide();
-        //             $('.dt-create-debt-button[data-value="submit"]').hide();
-        //         } else if(currentSlide == (panels.length - 1)){
-        //             $('.dt-create-debt-button[data-value="next"]').hide();
-        //             $('.dt-create-debt-button[data-value="submit"]').show();
-        //         } else {
-        //             $('.dt-create-debt-button[data-value="back"]').show();
-        //             $('.dt-create-debt-button[data-value="next"]').show();
-        //             $('.dt-create-debt-button[data-value="submit"]').hide();
-        //         }
-        //
-        //         updateMenuSize();
-        //     }
-        //
-        //     updateMenu();
-        //
-        //         initProgress();
-        //     function displaySliderValue(slider, value) {
-        //         slider.slider("option", "value", value.toFixed(2));
-        //         slider.siblings('.dt-create-debt-slider-paid').val(value.toFixed(2));
-        //     }
-        //
+    }, {
+        key: 'updateMenu',
+        value: function updateMenu() {
+            if (this.currentPage === this.pages.length) {
+                this.buttons['submit'].show();
+                this.buttons['next'].hide();
+            } else if (this.currentPage > 0) {
+                this.buttons['submit'].hide();
+                this.buttons['next'].show();
+            }
+        }
+    }, {
+        key: 'updatePage',
+        value: function updatePage() {
+            this.pages.not(this.pages.get(this.currentPage)).hide();
+            $(this.pages.get(this.currentPage)).show();
+        }
         //     function weightSliders(sliders, change) {
         //         if(change < 0) {
         //                 $.each(sliders, function() {
@@ -230,9 +255,16 @@ var _DebtCreator2 = _interopRequireDefault(_DebtCreator);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 window.onload = function () {
-    var debtCreator = new _DebtCreator2.default();
-    debtCreator.init();
-    console.log('es5');
+    var allModules = {
+        "DebtCreator": _DebtCreator2.default
+    };
+
+    var modules = $('script[type="module"]');
+    modules.each(function (index, module) {
+        var moduleName = $(module).attr('module-name');
+        var moduleLoaded = new allModules[moduleName]();
+        moduleLoaded.init();
+    });
 };
 
 },{"./Modules/DebtCreator.js":1}]},{},[2]);
