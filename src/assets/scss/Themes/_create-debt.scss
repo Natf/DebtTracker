@@ -1,18 +1,37 @@
 .dt-create-debt {
+  &__controls {
+    background-color: #337ab7;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+  }
+
   &__button {
-    display: inline-block;
+    cursor: pointer;
+    display:table-cell;
     text-align: center;
-    max-width: 75%;
-    min-width: 37.5%;
     background-color: #337ab7;
     -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
     -moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
     box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
-    margin-right: -4px;
     text-shadow: 1px 1px 8px rgba(0,0,0, 0.2);
     font-size: 20px;
-    height: 100px;
+    height: 100%;
     line-height: 60px;
+    margin: 0;
+    padding: 10px;
+    color: #fff;
+    width:100%;
 
     &[data-value="cancel"] {
       background-color: #d9534f;
@@ -100,17 +119,6 @@
     }
   }
 
-  &__controls {
-    float: left;
-    color: white;
-    cursor: pointer;
-    width: 100%;
-    background-color: #337ab7;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 60px;
-  }
 
   &__content {
     width: 100%;

@@ -2,34 +2,7 @@
 $this->layout('layouts::default--scss', ['title' => $title, 'hideFooter' => true])
 ?>
 
-
-<script type="application/javascript">
-    function check() {
-        "use strict";
-
-        if (typeof Symbol == "undefined") return false;
-        try {
-            var test = eval('"use strict"; class foo {}');
-        } catch (e) {
-            return false;
-        }
-        if (test === "use strict") return false;
-
-        return true;
-    }
-
-    if (check()) {
-        console.log('es6');
-    } else {
-        console.log('es5');
-        var imported = document.createElement('script');
-        imported.src = '/src/assets/js/main.js';
-        document.head.appendChild(imported);
-    }
-
-</script>
-
-<script type="module">
+<script type="module" module-name="DebtCreator">
     import DebtCreator from '/src/assets/es6/Modules/DebtCreator'
     let debtCreator = new DebtCreator();
     debtCreator.init();
@@ -88,7 +61,6 @@ $this->layout('layouts::default--scss', ['title' => $title, 'hideFooter' => true
             </div>
         </div>
 
-    </div>
     </div>
     <div class="dt-create-debt__container" data-value="Add a description">
         <div class="dt-create-debt__content">
