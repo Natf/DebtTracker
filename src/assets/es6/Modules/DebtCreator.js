@@ -21,12 +21,10 @@ export default class DebtCreator {
             let text = $('<div class="dt-create-debt__counter--text">');
             step.text(index + 1);
             text.text($(page).attr('data-value'));
-            counter.append(text, step);
+            counter.append(step, text);
             this.progressBar.append(counter);
         });
-        this.counterTexts = $('.dt-create-debt__counter--text');
         this.counters = $('.dt-create-debt__counter');
-        this.counterTexts.not(this.counterTexts.get(0)).hide();
     }
 
     initControls() {
@@ -36,14 +34,10 @@ export default class DebtCreator {
         });
 
         this.buttons['submit'].hide();
+        this.buttons['back'].hide();
 
         this.buttons['cancel'].on('click', () => {
             window.location.href = "/debts/view";
-        });
-
-        this.buttons['back'].on('click', () => {
-            this.currentPage--;
-            this.updateAll();
         });
 
         this.buttons['back'].on('click', () => {
@@ -72,18 +66,21 @@ export default class DebtCreator {
         $(this.counters.slice(0, this.currentPage)).addClass('dt-create-debt__counter--complete');
         $(this.counters.get(this.currentPage)).addClass('dt-create-debt__counter--active');
         this.counters.not(this.counters.get(this.currentPage)).removeClass('dt-create-debt__counter--active');
-        let visibleCounterTexts = this.counterTexts.filter(':visible');
-        visibleCounterTexts.hide();
-        $(visibleCounterTexts.get(this.currentPage)).animate({width: "toggle"}, 300);
+        // let visibleCounterTexts = this.counterTexts.filter(':visible');
+        // visibleCounterTexts.hide();
+        // $(visibleCounterTexts.get(this.currentPage)).animate({width: "toggle"}, 300);
     }
 
     updateMenu() {
-        if (this.currentPage === this.pages.length) {
+        if (this.currentPage === this.pages.length - 1) {
             this.buttons['submit'].show();
             this.buttons['next'].hide();
         } else if (this.currentPage > 0) {
             this.buttons['submit'].hide();
             this.buttons['next'].show();
+            this.buttons['back'].show();
+        } else if (this.currentPage === 0) {
+            this.buttons['back'].hide();
         }
     }
 
