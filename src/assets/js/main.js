@@ -19,6 +19,7 @@ var DebtCreator = function () {
         this.controls = $('div.dt-create-debt__controls');
         this.currentPage = 0;
         this.debtTypeAction = '';
+        this.direction = 0; // 1 right -1 left
     }
 
     _createClass(DebtCreator, [{
@@ -29,7 +30,7 @@ var DebtCreator = function () {
             this.updateProgress();
             this.initControls();
             this.initSplitControls();
-            this.updateAll();
+            this.updateAll(true);
         }
     }, {
         key: 'initProgress',
@@ -68,11 +69,13 @@ var DebtCreator = function () {
 
             this.buttons['back'].on('click', function () {
                 _this2.currentPage--;
+                _this2.direction = 1;
                 _this2.updateAll();
             });
 
             this.buttons['next'].on('click', function () {
                 _this2.currentPage++;
+                _this2.direction = -1;
                 _this2.updateAll();
             });
 
@@ -90,6 +93,7 @@ var DebtCreator = function () {
             this.splitControls.each(function (index, control) {
                 $(control).on('click', function () {
                     _this3.currentPage++;
+                    _this3.direction = -1;
                     _this3.updateAll();
                     _this3.debtTypeAction = $(control).attr('action');
                 });
@@ -98,9 +102,11 @@ var DebtCreator = function () {
     }, {
         key: 'updateAll',
         value: function updateAll() {
+            var initialUpdate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
             this.updateMenu();
             this.updateProgress();
-            this.updatePage();
+            this.updatePage(initialUpdate);
         }
     }, {
         key: 'updateProgress',
@@ -129,14 +135,31 @@ var DebtCreator = function () {
     }, {
         key: 'updatePage',
         value: function updatePage() {
+            var skipSlide = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
             var currentPage = $(this.pages.get(this.currentPage));
-            if (currentPage.attr('hide-controls') === "true") {
+
+            if (currentPage.attr('data-hide-controls') === "true") {
                 this.controls.hide();
+            } else if (currentPage.attr('data-hide-next') === "true") {
+                this.buttons['next'].hide();
             } else {
                 this.controls.show();
             }
-            this.pages.not(this.pages.get(this.currentPage)).hide();
-            currentPage.show();
+
+            console.log(skipSlide);
+
+            if (!skipSlide) {
+                this.slideAndHide(currentPage);
+            }
+        }
+    }, {
+        key: 'slideAndHide',
+        value: function slideAndHide(currentPage) {
+            var previousPage = $(this.pages.get(this.currentPage + this.direction));
+
+            previousPage.hide("slide", { direction: this.direction < 0 ? "left" : "right" }, 1000);
+            currentPage.show("slide", { direction: this.direction > 0 ? "left" : "right" }, 1000);
         }
     }]);
 

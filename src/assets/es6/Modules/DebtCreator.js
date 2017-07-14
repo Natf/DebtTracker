@@ -7,6 +7,7 @@ export default class DebtCreator {
         this.controls = $('div.dt-create-debt__controls')
         this.currentPage = 0;
         this.debtTypeAction = '';
+        this.direction = 0; // 1 right -1 left
     }
 
     init() {
@@ -15,7 +16,7 @@ export default class DebtCreator {
         this.updateProgress();
         this.initControls();
         this.initSplitControls();
-        this.updateAll();
+        this.updateAll(true);
     }
 
     initProgress() {
@@ -48,11 +49,13 @@ export default class DebtCreator {
 
         this.buttons['back'].on('click', () => {
             this.currentPage--;
+            this.direction = 1;
             this.updateAll();
         });
 
         this.buttons['next'].on('click', () => {
             this.currentPage++;
+            this.direction = -1;
             this.updateAll();
         });
 
@@ -66,17 +69,18 @@ export default class DebtCreator {
         this.splitControls = $('div.dt-create-debt__split-content--container');
         this.splitControls.each((index, control) => {
             $(control).on('click', () => {
-               this.currentPage++;
-               this.updateAll();
-               this.debtTypeAction = $(control).attr('action');
+                this.currentPage++;
+                this.direction = -1;
+                this.updateAll();
+                this.debtTypeAction = $(control).attr('action');
             });
         });
     }
 
-    updateAll() {
+    updateAll(initialUpdate = false) {
         this.updateMenu();
         this.updateProgress();
-        this.updatePage();
+        this.updatePage(initialUpdate);
     }
 
     updateProgress() {
@@ -101,14 +105,28 @@ export default class DebtCreator {
         }
     }
 
-    updatePage() {
+    updatePage(skipSlide = false) {
         let currentPage = $(this.pages.get(this.currentPage));
-        if (currentPage.attr('hide-controls') === "true") {
+
+        if (currentPage.attr('data-hide-controls') === "true") {
             this.controls.hide();
+        } else if (currentPage.attr('data-hide-next') === "true") {
+            this.buttons['next'].hide();
         } else {
             this.controls.show();
         }
-        this.pages.not(this.pages.get(this.currentPage)).hide();
-        currentPage.show();
+
+        console.log(skipSlide)
+
+        if (!skipSlide) {
+            this.slideAndHide(currentPage);
+        }
+    }
+
+    slideAndHide(currentPage) {
+        let previousPage = $(this.pages.get(this.currentPage + this.direction));
+
+        previousPage.hide("slide", { direction: (this.direction < 0) ? "left" : "right" }, 1000);
+        currentPage.show("slide", { direction: (this.direction > 0) ? "left" : "right" }, 1000);
     }
 }

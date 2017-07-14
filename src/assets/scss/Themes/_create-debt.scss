@@ -1,4 +1,11 @@
 .dt-create-debt {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  /* bottom: 0; */
+  /* top: 100px; */
+
   &__controls {
     position: fixed;
     bottom: 0;
@@ -60,18 +67,22 @@
     width: 100%;
     -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    height: 100%;
-    position: fixed;
-    float: left;
-    padding-top: 60px;
-    margin-top: -60px;
+    /* height: 100%; */
+    margin-top: 0;
+    display: inline-block;
+    vertical-align: top;
+    /* margin-top: -60px; */
+    /* padding-top: 60px; */
+    top: 60px;
+    position: absolute;
+    bottom: 0;
   }
 
   &__progress-bar {
     height: 60px;
     line-height: 60px;
     color: white;
-    display: block;
+    display: inline-block;
     width: 100%;
     background-color: lightgray;
   }
@@ -147,12 +158,12 @@
     display: block;
     height: 100%;
     width: 100%;
-    margin-top: -30px;
     cursor: pointer;
     background-color: lightgray;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 
     &--text {
       position: relative;
@@ -163,7 +174,7 @@
 
       & > p {
         line-height: 100%;
-        margin-top: 50%;
+        margin-top: 30%;
       }
     }
 
@@ -171,7 +182,7 @@
       height: 100%;
       width: 50%;
       margin: 0;
-      display: block;
+      display: inline-block!important;
       padding: 30px;
 
       &:hover {
@@ -189,29 +200,41 @@
   &__content {
     width: 100%;
     margin-top: 0;
-    position: absolute;
+    position: relative;
     height: 100%;
+    display: inline-block;
+    vertical-align: top;
 
     &--scroll {
       overflow-y: scroll;
-      margin-top: -30px;
       padding-bottom: 80px;
+      position: absolute;
+      display: inline-block;
+      top: 100px;
+      width: 100%;
+      bottom: 0;
     }
 
     &--instructions {
-      padding: 20px 30px;
+      padding: 1rem 2rem;
       -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
       -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
       z-index: 100;
-      margin-bottom: 30px;
+      /* margin-bottom: 30px; */
+      display: inline-block;
+      /* position: fixed; */
+      line-height: 100px;
+      height: 100px;
+      width: 100%;
 
       & > h2 {
         margin-top: 0;
+        font-size: 2.5rem;
       }
 
       & > h4 {
-        font-size: 18px;
+        font-size: 1.4rem;
         font-weight: normal;
       }
     }
