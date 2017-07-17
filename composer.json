@@ -6,7 +6,8 @@
         "respect/validation": "^1.1",
         "twbs/bootstrap": "^3.3",
         "panique/laravel-sass": "^1.0",
-        "twbs/bootstrap-sass": "^3.3"
+        "twbs/bootstrap-sass": "^3.3",
+        "fortawesome/font-awesome": "^4.7"
     },
     "autoload": {
         "psr-4": {

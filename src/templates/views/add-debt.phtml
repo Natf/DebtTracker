@@ -1,85 +1,25 @@
 <?php
-$this->layout('layouts::default', ['title' => $title, 'hideFooter' => true])
+$this->layout('layouts::default', ['title' => $title, 'hideFooter' => true, 'user' => $user, 'contacts' => $contacts])
 ?>
 
-<link href="/src/assets/css/add-debt.css" rel="stylesheet" type="text/css" />
-<form class="dt-add-debt">
-    <div class="dt-add-debt-progress">
-    </div>
-    <div class="dt-add-debt-container" data-value="">
-        <div class="dt-add-debt-content">
-            <div class="dt-add-debt-content-instructions">
-                <h2>Select contacts for this debt</h2>
-                <h4>Please select at least one contact</h4>
-            </div>
-            <div class="dt-add-debt-" style="margin-top:-30px;">
-                <?php foreach($contacts as $contact): ?>
-                    <div class="dt-add-debt-contact" value="<?= $contact['id'] ?>"><?= $contact['name'] ?></div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-    <div class="dt-add-debt-container" data-value="Add Contact">
-        <div class="dt-add-debt-content">
-            <div class="dt-add-debt-content-instructions">
-                <h2>Select contacts for this debt</h2>
-                <h4>Please select at least one contact</h4>
-            </div>
-            <div class="dt-add-debt-content-scroll" style="margin-top:-30px;">
-                <?php foreach($contacts as $contact): ?>
-                    <div class="dt-add-debt-contact" value="<?= $contact['id'] ?>"><?= $contact['name'] ?></div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-    <div class="dt-add-debt-container" data-value="Enter Debt Amount">
-        <div class="dt-add-debt-content">
-            <div class="dt-add-debt-content-instructions">
-                <h2>Enter an amount for the debt</h2>
-                <h4>
-                    You can also set the amount paid by each user,
-                    by default you will be set as having paid the
-                    full amount of the debt.
-                </h4>
-            </div>
-            <div class="dt-add-debt-input">
-                <label>Total Debt Amount: £</label>
-                <input class="dt-add-debt-total-debt-amount" name="debtAmount">
-            </div>
-            <div class="dt-add-debt-content-scroll">
-                <h3>Amount Paid By:</h3>
-                <div class="dt-add-debt-input dt-add-debt-slider dt-add-debt-slider-you" data-value="<?= $user['id'] ?>">
-                    <label>You:</label>
-                    <div class="dt-add-debt-slider-input"></div>
-                    <input class="dt-add-debt-slider-paid" name="paid">
-                </div>
-            </div>
-        </div>
+<script type="module" module-name="DebtCreator">
+    import DebtCreator from '/src/assets/es6/Modules/DebtCreator'
+    let debtCreator = new DebtCreator();
+    debtCreator.init();
+</script>
 
+<form class="dt-create-debt">
+    <div class="dt-create-debt__progress-bar">
     </div>
-    </div>
-    <div class="dt-add-debt-container" data-value="Add a description">
-        <div class="dt-add-debt-content">
-            <div class="dt-add-debt-content-instructions">
-                <h2>Add a description for the debt</h2>
-                <h4>
-                    Enter a helpful description to help you remember
-                    what the debt is about. You don't have to
-                    enter a description.
-                </h4>
-            </div>
-            <div class="dt-add-debt-input">
-                <label>Description:</label>
-                <textarea class="dt-add-debt-description"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="dt-add-debt-controls">
-        <div class="dt-add-debt-button" data-value="cancel">Cancel</div>
-        <div class="dt-add-debt-button" data-value="back">Back</div>
-        <div class="dt-add-debt-button" data-value="next">Next</div>
-        <div class="dt-add-debt-button" data-value="submit">Add Debt</div>
+    <?= $this->insert('partials::DebtCreator/choose-debt', ['user' => $user, 'contacts' => $contacts]) ?>
+    <?= $this->insert('partials::DebtCreator/add-contacts', ['user' => $user, 'contacts' => $contacts]) ?>
+    <?= $this->insert('partials::DebtCreator/debt-amount', ['user' => $user, 'contacts' => $contacts]) ?>
+    <?= $this->insert('partials::DebtCreator/debt-description', ['user' => $user, 'contacts' => $contacts]) ?>
+    <div class="dt-create-debt__controls">
+        <div class="dt-create-debt__button" data-value="cancel">Cancel</div>
+        <div class="dt-create-debt__button" data-value="back">Back</div>
+        <div class="dt-create-debt__button" data-value="next">Next</div>
+        <div class="dt-create-debt__button" data-value="submit">Add Debt</div>
     </div>
 </form>
 
-<script src="/src/assets/js/add-debt.js"></script>

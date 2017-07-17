@@ -8,8 +8,6 @@ use Nat\DebtTracker\Debts\Models\Debt as DebtTunnel;
 
 if (isset($app)) {
     $app->get('/debts/view', function (Request $request, Response $response) use ($app) {
-//        return 'hello';
-//        die('hello');
         $debtFetcher = new Debt(new DebtTunnel($this->fluentPdo), $_SESSION['user']['id']);
         $allDebts = $debtFetcher->getDebtsForUser();
         $contactDebts = $debtFetcher->getDebtsForUserGroupedByContacts($allDebts);
@@ -32,23 +30,14 @@ if (isset($app)) {
         ], $response);
     })->setName('ViewDebts');
 
-    $app->get('/debts/add', function (Request $request, Response $response) use ($app) {
+    $app->get('/debts/create', function (Request $request, Response $response) use ($app) {
         $user = new \Nat\DebtTracker\Users\Controllers\User($this->fluentPdo, $_SESSION['user']);
         return $this->view->render('views::add-debt', [
             'title' => 'Add A Debt',
             'user' => $_SESSION['user'],
             'contacts' => $user->getLiveContactsForUser()
         ], $response);
-    });
-
-    $app->get('/debts/create', function (Request $request, Response $response) use ($app) {
-        $user = new \Nat\DebtTracker\Users\Controllers\User($this->fluentPdo, $_SESSION['user']);
-        return $this->view->render('views::add-debt--new', [
-            'title' => 'Add A Debt',
-            'user' => $_SESSION['user'],
-            'contacts' => $user->getLiveContactsForUser()
-        ], $response);
-    });
+    })->setName('GET__CREATE-DEBT');
 
     $app->post('/debts/create', function (Request $request, Response $response) use ($app) {
         $post = $request->getParams();

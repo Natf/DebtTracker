@@ -30,6 +30,7 @@ var DebtCreator = function () {
             this.updateProgress();
             this.initControls();
             this.initSplitControls();
+            this.initContacts();
             this.updateAll(true);
         }
     }, {
@@ -147,8 +148,6 @@ var DebtCreator = function () {
                 this.controls.show();
             }
 
-            console.log(skipSlide);
-
             if (!skipSlide) {
                 this.slideAndHide(currentPage);
             }
@@ -160,6 +159,17 @@ var DebtCreator = function () {
 
             previousPage.hide("slide", { direction: this.direction < 0 ? "left" : "right" }, 1000);
             currentPage.show("slide", { direction: this.direction > 0 ? "left" : "right" }, 1000);
+        }
+    }, {
+        key: 'initContacts',
+        value: function initContacts() {
+            this.contacts = $('.dt-create-debt__li');
+
+            this.contacts.each(function (index, contact) {
+                $(contact).on('click', function () {
+                    $(contact).toggleClass('dt-create-debt__li--selected');
+                });
+            });
         }
     }]);
 

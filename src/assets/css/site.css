@@ -155,6 +155,9 @@
     height: 100%;
     display: inline-block;
     vertical-align: top; }
+    .dt-create-debt__content--margin {
+      margin-top: 30px;
+      padding: 0 30px; }
     .dt-create-debt__content--scroll {
       overflow-y: scroll;
       padding-bottom: 80px;
@@ -162,7 +165,8 @@
       display: inline-block;
       top: 100px;
       width: 100%;
-      bottom: 0; }
+      bottom: 0;
+      background-color: lightgray; }
     .dt-create-debt__content--instructions {
       padding: 1rem 2rem;
       -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
@@ -216,17 +220,56 @@
       padding-top: -4px;
       line-height: 16px; }
     .dt-create-debt__li:hover {
+      font-family: "Helvetica Neue";
       background-color: #449d44; }
       .dt-create-debt__li:hover:after {
         content: '+'; }
     .dt-create-debt__li--selected {
       background-color: #5cb85c; }
+      .dt-create-debt__li--selected:after {
+        font-family: FontAwesome;
+        content: "\f00c";
+        font-size: 1.1em;
+        line-height: 1.1em; }
       .dt-create-debt__li--selected:hover:after {
-        content: '-'; }
+        content: '-';
+        font-size: 40px;
+        line-height: 16px; }
   .dt-create-debt__input {
     margin: 0 30px;
     width: 60%;
     display: inline-block; }
+    .dt-create-debt__input--field {
+      outline: none;
+      -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      padding-left: 5px; }
+      .dt-create-debt__input--field ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: gray; }
+      .dt-create-debt__input--field ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: gray; }
+      .dt-create-debt__input--field :-ms-input-placeholder {
+        /* IE 10+ */
+        color: gray; }
+      .dt-create-debt__input--field :-moz-placeholder {
+        /* Firefox 18- */
+        color: gray; }
+    .dt-create-debt__input--input-span {
+      position: absolute;
+      display: block;
+      left: 15px;
+      top: 10px;
+      z-index: 9;
+      color: gray; }
+    .dt-create-debt__input--box {
+      position: relative; }
+    .dt-create-debt__input--debt-total {
+      padding: 10px 10px 10px 20px;
+      border: none;
+      text-align: right; }
   .dt-create-debt__slider {
     width: 100%;
     line-height: 30px; }

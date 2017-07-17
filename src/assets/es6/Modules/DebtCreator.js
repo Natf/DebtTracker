@@ -16,6 +16,7 @@ export default class DebtCreator {
         this.updateProgress();
         this.initControls();
         this.initSplitControls();
+        this.initContacts();
         this.updateAll(true);
     }
 
@@ -116,8 +117,6 @@ export default class DebtCreator {
             this.controls.show();
         }
 
-        console.log(skipSlide)
-
         if (!skipSlide) {
             this.slideAndHide(currentPage);
         }
@@ -128,5 +127,15 @@ export default class DebtCreator {
 
         previousPage.hide("slide", { direction: (this.direction < 0) ? "left" : "right" }, 1000);
         currentPage.show("slide", { direction: (this.direction > 0) ? "left" : "right" }, 1000);
+    }
+
+    initContacts() {
+        this.contacts = $('.dt-create-debt__li')
+
+        this.contacts.each((index, contact) => {
+            $(contact).on('click', () => {
+                $(contact).toggleClass('dt-create-debt__li--selected')
+            })
+        })
     }
 }

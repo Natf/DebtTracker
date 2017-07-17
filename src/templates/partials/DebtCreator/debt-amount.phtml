@@ -8,13 +8,15 @@
                 full amount of the debt.
             </h4>
         </div>
-        <div class="dt-create-debt__input">
+        <div class="dt-create-debt__content--margin">
             <label>Total Debt Amount: £</label>
-            <input class="dt-create-debt__input--debt-total" name="debtAmount">
-        </div>
-        <div class="dt-create-debt__content--scroll">
+            <div class="dt-create-debt__input--box">
+                <input class="dt-create-debt__input--debt-total dt-create-debt__input--field" placeholder="0.00" name="debtAmount" type="number" min="0.01" step="0.01">
+                <span class="dt-create-debt__input--input-span">£</span>
+            </div>
             <h3>Amount Paid By:</h3>
-            <div class="dt-create-debt__input dt-create-debt__slider dt-create-debt__slider--you" data-value="<?= $user['id'] ?>">
+            <div class="dt-create-debt__input dt-create-debt__slider dt-create-debt__slider--you"
+                 data-value="<?= $user['id'] ?>">
                 <label>You:</label>
                 <div class="dt-create-debt__slider--input"></div>
                 <input class="dt-create-debt__slider--paid" name="paid">

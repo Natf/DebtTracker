@@ -182,11 +182,11 @@
       height: 100%;
       width: 50%;
       margin: 0;
-      display: inline-block!important;
+      display: inline-block !important;
       padding: 30px;
 
       &:hover {
-        background-color:#5cb85c;
+        background-color: #5cb85c;
       }
     }
     &--left {
@@ -205,6 +205,11 @@
     display: inline-block;
     vertical-align: top;
 
+    &--margin {
+      margin-top: 30px;
+      padding: 0 30px;
+    }
+
     &--scroll {
       overflow-y: scroll;
       padding-bottom: 80px;
@@ -213,6 +218,7 @@
       top: 100px;
       width: 100%;
       bottom: 0;
+      background-color: lightgray;
     }
 
     &--instructions {
@@ -278,6 +284,7 @@
     }
 
     &:hover {
+      font-family: "Helvetica Neue";
       background-color: #449d44;
       &:after {
         content: '+';
@@ -286,8 +293,18 @@
 
     &--selected {
       background-color: #5cb85c;
+
+      &:after {
+        font-family: FontAwesome;
+        content: "\f00c";
+        font-size: 1.1em;
+        line-height: 1.1em;
+      }
+
       &:hover:after {
         content: '-';
+        font-size: 40px;
+        line-height: 16px;
       }
     }
   }
@@ -296,6 +313,34 @@
     margin: 0 30px;
     width: 60%;
     display: inline-block;
+
+    &--field {
+      outline: none;
+      -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+      padding-left: 5px;
+      @include placeholder(gray);
+    }
+
+    &--input-span {
+      position: absolute;
+      display: block;
+      left: 15px;
+      top: 10px;
+      z-index: 9;
+      color: gray;
+    }
+
+    &--box {
+      position: relative;
+    }
+
+    &--debt-total {
+      padding: 10px 10px 10px 20px;
+      border: none;
+      text-align: right;
+    }
   }
 
   &__slider {
